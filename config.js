@@ -12,7 +12,7 @@ var config = {
     arcade: {
       debug: false
     }
-  }
+  },
 }
 
 export default config;

@@ -7,7 +7,7 @@ export default class PlayingScene extends Phaser.Scene {
   }
 
   create() {
-    this.background = this.add.tileSprite(0, 0, config.width, 0, "background");
+    this.background = this.add.tileSprite(0, 0, config.width, config.height, "background");
     this.background.setOrigin(0, 0);
     this.background.setScale(
       this.sys.canvas.width / this.background.width,
