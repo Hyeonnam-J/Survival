@@ -15,6 +15,7 @@ export default class PlayingScene extends Phaser.Scene {
     )
 
     this.hero = new Hero(this, config.width / 2, config.height / 2, "hero");
+    this.cameras.main.startFollow(this.hero);
 
     this.add.text(20, 20, "Playing game", {
       font: "25px Arial",
@@ -27,5 +28,11 @@ export default class PlayingScene extends Phaser.Scene {
 
   update(){
     this.hero.update(this.cursors);
+
+    this.background.setX(this.hero.x - config.width / 2);
+    this.background.setY(this.hero.y - config.height / 2);
+    this.background.tilePositionX = this.hero.x - config.width / 2;
+    this.background.tilePositionY = this.hero.y - config.height / 2;
+    
   }
 }
