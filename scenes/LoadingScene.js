@@ -11,19 +11,17 @@ export default class LoadingScene extends Phaser.Scene {
       frameWidth: 144.3,
       frameHeight: 144.25
     });
+
+    this.load.spritesheet("bat", "assets/spritesheets/bat.png", {
+      frameWidth: 16,
+      frameHeight: 16
+    });
   }
 
   create() {
     this.add.text(20, 20, "Loading game...");
     this.scene.start("PlayingScene");
-/*
-    this.anims.create({
-      key: "hero_anim",
-      frames: this.anims.generateFrameNumbers('hero'),
-      frameRate: 10,  //초당 프레임
-      repeat: -1
-    });
-*/
+
     this.anims.create({
       key: "hero_downAnim",
       frames: this.anims.generateFrameNumbers('hero', { start: 0, end: 2 }),
@@ -48,6 +46,13 @@ export default class LoadingScene extends Phaser.Scene {
     this.anims.create({
       key: "hero_upAnim",
       frames: this.anims.generateFrameNumbers('hero', { start: 9, end: 11 }),
+      frameRate: 10,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: "bat_anim",
+      frames: this.anims.generateFrameNumbers('bat'),
       frameRate: 10,
       repeat: -1
     });
