@@ -1,3 +1,5 @@
+import FireBall from "../attacks/FireBall.js";
+
 export default class Hero extends Phaser.Physics.Arcade.Sprite{
   constructor(scene, x, y, texture, animKey){
     super(scene, x, y, texture);
@@ -9,6 +11,14 @@ export default class Hero extends Phaser.Physics.Arcade.Sprite{
     this.play(this.currentAnimKey);
 
     this.speed = 5;
+
+    scene.time.addEvent({
+      delay: 1000,
+      callback: () => {
+          this.shootFireBall();
+      },
+      loop: true,
+    });
 
   };
 
@@ -36,5 +46,9 @@ export default class Hero extends Phaser.Physics.Arcade.Sprite{
     if (this.anims.getCurrentKey() !== this.currentAnimKey) {
       this.play(this.currentAnimKey);
     }
+  }
+
+  shootFireBall() {
+    new FireBall(this.scene, this);
   }
 }

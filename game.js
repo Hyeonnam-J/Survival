@@ -1,5 +1,7 @@
 import config from './config.js';
 
+const game = new Phaser.Game(config);
+/*
 let game;
 
 // 초기화
@@ -18,6 +20,6 @@ function updateConfigSize() {
   if(game){
     game.scale.resize(config.width, config.height);
   }
-}
+}*/
 
 export default game;

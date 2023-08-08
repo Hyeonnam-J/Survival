@@ -5,6 +5,9 @@ export default class LoadingScene extends Phaser.Scene {
 
   preload(){
     this.load.image("background", "assets/images/background.jpg");
+    this.load.image("fireBall", "assets/images/fireBall.png");
+
+    this.load.image("cat", "assets/images/cat.png");
 
     //frame 너비와 높이로 사진을 그냥 잘라버린다. 단위는 px. 사진의 크기를 보고 값을 매길 것.
     this.load.spritesheet("hero", "assets/spritesheets/hero.png", {
@@ -19,7 +22,6 @@ export default class LoadingScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.text(20, 20, "Loading game...");
     this.scene.start("PlayingScene");
 
     this.anims.create({
