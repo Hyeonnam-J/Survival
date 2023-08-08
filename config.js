@@ -1,5 +1,5 @@
-import LoadingScene from './LoadingScene.js';
-import PlayingScene from './PlayingScene.js';
+import LoadingScene from './scenes/LoadingScene.js';
+import PlayingScene from './scenes/PlayingScene.js';
 
 var config = {
   width: 800,

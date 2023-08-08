@@ -1,5 +1,5 @@
-import config from './config.js';
-import Hero from './Hero.js';
+import config from '../config.js';
+import Hero from '../characters/Hero.js';
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -13,11 +13,8 @@ export default class PlayingScene extends Phaser.Scene {
       this.sys.canvas.width / this.background.width,
       this.sys.canvas.height / this.background.height
     )
-/*
-    this.hero = this.add.sprite(config.width / 2, config.height / 2, "hero");
-    this.hero.play('hero_anim');
-  */
-    this.hero = new Hero(this, config.width / 2, config.height / 2, "hero", "hero_anim");
+
+    this.hero = new Hero(this, config.width / 2, config.height / 2, "hero", "hero_upAnim");
 
     this.add.text(20, 20, "Playing game", {
       font: "25px Arial",
