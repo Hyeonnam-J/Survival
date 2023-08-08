@@ -1,11 +1,12 @@
 import LoadingScene from './scenes/LoadingScene.js';
+import MainScene from './scenes/MainScene.js';
 import PlayingScene from './scenes/PlayingScene.js';
 
 var config = {
   width: 800,
   height: 600,
   backgroundColor: 0x000000,
-  scene: [LoadingScene, PlayingScene],
+  scene: [LoadingScene, MainScene, PlayingScene],
   pixelArt: true,
   physics: {
     default: "arcade",
