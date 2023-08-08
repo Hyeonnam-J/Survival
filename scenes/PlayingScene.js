@@ -14,15 +14,18 @@ export default class PlayingScene extends Phaser.Scene {
       this.sys.canvas.height / this.background.height
     )
 
-    this.hero = new Hero(this, config.width / 2, config.height / 2, "hero", "hero_upAnim");
+    this.hero = new Hero(this, config.width / 2, config.height / 2, "hero");
 
     this.add.text(20, 20, "Playing game", {
       font: "25px Arial",
       fill: "yellow"
     });
+
+    //키보드 입력 활성화.
+    this.cursors = this.input.keyboard.createCursorKeys();
   }
 
   update(){
-    
+    this.hero.update(this.cursors);
   }
 }
