@@ -46,15 +46,13 @@ function enemyBlink(scene, enemy){
 
 export function hurt(scene, hero, damage){
   if(hero.alpha < 1) return;
-
-  //this.scene.m_hurtSound.play();
   
+  scene.hurt_sound.play();
   hero.currentHp -= damage;
-  console.log(hero.currentHp);
   scene.status.drawBar(scene, scene.status.hpBar, scene.status.border, scene.status.border, 0xff0000);
 
   if(hero.currentHp <= 0){
-    console.log('게임오버');
+    scene.scene.start("GameOverScene", { score : scene.score });
   }
   
   hero.disableBody(true, false);

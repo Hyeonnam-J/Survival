@@ -18,6 +18,7 @@ export default class PlayingScene extends Phaser.Scene {
     //사운드
     this.fireBall_sound = this.sound.add('fireBall_audio');
     this.explosion_sound = this.sound.add('explosion_audio');
+    this.hurt_sound = this.sound.add('hurt_audio');
 
     //배경
     this.background = this.add.tileSprite(0, 0, config.width, config.height, "background_img");
