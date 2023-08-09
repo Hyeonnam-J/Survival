@@ -1,8 +1,10 @@
 import config from '../config.js';
 
 export default class Status extends Phaser.GameObjects.Container {
-  constructor(scene, x, y){
+  constructor(scene, x, y, hero){
     super(scene, x, y);
+
+    this.hero = hero;
 
     this.barWidth = config.width / 4; // value not considered background
     this.barHeight = config.height / 50;
@@ -12,12 +14,12 @@ export default class Status extends Phaser.GameObjects.Container {
 
     // add를 통해 객체를 컨테이너에 종속. 컨테이너의 위치나 회전에 함께 영향받음.
     this.hpBarBackground = this.drawBarBackground(scene, 0, 0, 0x000000);
-    this.hpBar = this.drawBar(scene, this.border, this.border, 0xff0000);
+    this.hpBar = this.drawBar(scene, null, this.border, this.border, 0xff0000);
     this.add(this.hpBarBackground);
     this.add(this.hpBar);
     
     this.mpBarBackground = this.drawBarBackground(scene, 0, this.barHeightBackground, 0x000000);
-    this.mpBar = this.drawBar(scene, this.border, this.barHeightBackground + this.border, 0x0000ff);
+    this.mpBar = this.drawBar(scene, null, this.border, this.barHeightBackground + this.border, 0x0000ff);
     this.add(this.mpBarBackground);
     this.add(this.mpBar);
 
@@ -34,16 +36,24 @@ export default class Status extends Phaser.GameObjects.Container {
     return graphics;
   }
 
-  drawBar(scene, x, y, color) {
-    let graphics = new Phaser.GameObjects.Graphics(scene);
+  drawBar(scene, graphics, x, y, color) {
+    if(graphics == null){
+      graphics = new Phaser.GameObjects.Graphics(scene);
+    }
+
+    graphics.clear();
+
     graphics.fillStyle(color, 1);
-    graphics.fillRect(x, y, this.barWidth, this.barHeight);
+    graphics.fillRect(
+      x,
+      y,
+      this.getCurrentStatus(this.barWidth, this.hero.currentHp, this.hero.maxHp), 
+      this.barHeight
+    );
     return graphics;
   }
 
-  // 체력과 마력 업데이트 (0에서 1 사이의 값)
-  updateStatus(hpPercent, mpPercent) {
-      this.hpBar.scaleX = hpPercent;
-      this.mpBar.scaleX = mpPercent;
+  getCurrentStatus(barWidth, currentHp, maxHp){
+    return barWidth * currentHp / maxHp;
   }
 }

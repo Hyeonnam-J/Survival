@@ -3,7 +3,7 @@ import Hero from '../characters/Hero.js';
 import Bat from '../characters/Bat.js';
 import Status from '../ui/Status.js';
 import { getRandomPosition } from '../utility/Math.js';
-import { hurt } from '../utility/Collision.js';
+import { hit, hurt } from '../utility/Collision.js';
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -43,7 +43,11 @@ export default class PlayingScene extends Phaser.Scene {
     //enemyGroup이 가져야 할 멤버 hp, damage, score
     //attackGroup이 가져야 할 멤버 damage 
     this.physics.add.overlap(this.attackGroup, this.enemyGroup, (attack, enemy) => {
-      hurt(this, attack, enemy, attack.damege, enemy.score);
+      hit(this, attack, enemy, attack.power, enemy.score);
+    }, null, this);
+
+    this.physics.add.overlap(this.hero, this.enemyGroup, (hero, enemy) => {
+      hurt(this, hero, enemy.power);
     }, null, this);
 
     // score
@@ -67,11 +71,12 @@ export default class PlayingScene extends Phaser.Scene {
     */
 
     // status
-    //this.status = new Status(this, config.width / 200, config.height / 200);
+    // 맵을 확장해서 쓸 경우를 고려해 플레이어 기준으로 좌표 설정.
     this.status = new Status(
       this, 
       this.hero.x - config.width / 2 + config.width / 200,
-      this.hero.y - config.height / 2 + config.height / 200
+      this.hero.y - config.height / 2 + config.height / 200,
+      this.hero
     );
   }
 

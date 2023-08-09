@@ -1,17 +1,20 @@
+import { mySetCircle } from "../utility/Collision.js";
+
 export default class FireBall extends Phaser.Physics.Arcade.Image {
     constructor(scene, hero) {
         const x = hero.x;
         const y = hero.y;
         super(scene, x, y, "fireBall_img");
-        this.setScale(0.2);
 
         this.speed = 200;
         this.duration = 1000;
-        this.damege = 10;
+        this.power = 10;
 
         scene.add.existing(this);
         scene.physics.world.enableBody(this);
-        this.setCircle(30);
+        
+        mySetCircle(this, 0.2); // 물리성 부여 후에 setCircle 사용 가능.
+
         this.setVelocity();
 
         scene.attackGroup.add(this);
