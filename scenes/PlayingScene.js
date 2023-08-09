@@ -1,6 +1,7 @@
 import config from '../config.js';
 import Hero from '../characters/Hero.js';
 import Bat from '../characters/Bat.js';
+import Battleship from '../characters/Battleship.js';
 import Status from '../ui/Status.js';
 import { getRandomPosition } from '../utility/Math.js';
 import { hit, hurt } from '../utility/Collision.js';
@@ -35,7 +36,8 @@ export default class PlayingScene extends Phaser.Scene {
 
     //적
     this.enemyGroup = this.physics.add.group();  //적은 물리효과 있음.
-    this.addBat("bat_sprite", "bat_anim");
+    this.addEnemy(Bat, "bat_sprite", "bat_anim", 2000);
+    this.addEnemy(Battleship, "battleship_img", null, 4000);
 
     //공격
     this.attackGroup = this.add.group();  //공격은 물리효과 없음.
@@ -121,12 +123,12 @@ export default class PlayingScene extends Phaser.Scene {
     return closestEnemy;
   }
 
-  addBat(texture, animKey) {
+  addEnemy(Type, texture, animKey, delay) {
     this.time.addEvent({
-      delay: 1000,
+      delay: delay,
       callback: () => {
           let [x, y] = getRandomPosition(this.hero.x, this.hero.y);
-          this.enemyGroup.add(new Bat(this, x, y, texture, animKey));
+          this.enemyGroup.add(new Type(this, x, y, texture, animKey));
       },
       loop: true,
     });

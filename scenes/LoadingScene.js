@@ -16,6 +16,9 @@ export default class LoadingScene extends Phaser.Scene {
 
     this.load.image("background_img", "../assets/images/background.jpg");
     this.load.image("fireBall_img", "../assets/images/fireBall.png");
+    this.load.image("battleship_img", "../assets/images/battleship.png");
+    this.load.image("iceRing_img", "../assets/images/iceRing.png");
+    this.load.image("iceExplosion_img", "../assets/images/iceExplosion.png");
 
     //frame 너비와 높이로 사진을 그냥 잘라버린다. 단위는 px. 사진의 크기를 보고 값을 매길 것.
     this.load.spritesheet("hero_sprite", "../assets/spritesheets/hero.png", {

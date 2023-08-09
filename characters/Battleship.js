@@ -1,22 +1,18 @@
 import { mySetSize } from "../utility/Collision.js";
 
-export default class Bat extends Phaser.Physics.Arcade.Sprite{
+export default class Battleship extends Phaser.Physics.Arcade.Image{
   constructor(scene, x, y, texture, animKey){
     super(scene, x, y, texture);
 
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
-    mySetSize(this, 2);
-
-    if(animKey){
-      this.play(animKey);
-    };
+    mySetSize(this, 0.1);
     
-    this.speed = 50;
-    this.hp = 20;
-    this.score = 1;
-    this.power = 10;
+    this.speed = 30;
+    this.hp = 40;
+    this.score = 2;
+    this.power = 25;
 
     this.move = [];
     this.move.push(this.scene.time.addEvent({

@@ -8,8 +8,11 @@ export function hit(scene, attack, enemy, damage, score){
 
   // hp가 0 이하면 인스턴스의 모든 이벤트를 제거하고 삭제
   if(enemy.hp <= 0){
+    
+    //Explosion 말고 적 종류에 따라 바뀌어야 해
     new Explosion(scene, enemy.x, enemy.y);
     scene.explosion_sound.play();
+
     enemy.move.forEach(event => {
       event.remove();
     });
