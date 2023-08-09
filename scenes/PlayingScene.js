@@ -1,6 +1,7 @@
 import config from '../config.js';
 import Hero from '../characters/Hero.js';
 import Bat from '../characters/Bat.js';
+import Status from '../ui/Status.js';
 import { getRandomPosition } from '../utility/Math.js';
 import { hurt } from '../utility/Collision.js';
 
@@ -47,7 +48,13 @@ export default class PlayingScene extends Phaser.Scene {
 
     // score
     this.score = 0;
-    this.scoreLabel = this.add.bitmapText(config.width - 10, 1, "font", this.getScoreText(), 40);
+    this.scoreLabel 
+      = this.add.bitmapText(
+        config.width - (config.width / 100), 
+        config.height / 100, 
+        "font", 
+        this.getScoreText(), 
+        40);
     this.scoreLabel.setOrigin(1, 0);
     this.scoreLabel.setScrollFactor(0);
     this.scoreLabel.setDepth(10);
@@ -58,6 +65,14 @@ export default class PlayingScene extends Phaser.Scene {
     graphics.setDepth(10);
     graphics.setScrollFactor(0);
     */
+
+    // status
+    //this.status = new Status(this, config.width / 200, config.height / 200);
+    this.status = new Status(
+      this, 
+      this.hero.x - config.width / 2 + config.width / 200,
+      this.hero.y - config.height / 2 + config.height / 200
+    );
   }
 
   getScoreText() {
@@ -67,11 +82,17 @@ export default class PlayingScene extends Phaser.Scene {
   update(){
     this.hero.update(this.cursors);
 
-    //배경이 주인공 따라오게
+    // 배경이 주인공 따라오게
     this.background.setX(this.hero.x - config.width / 2);
     this.background.setY(this.hero.y - config.height / 2);
     this.background.tilePositionX = this.hero.x - config.width / 2;
     this.background.tilePositionY = this.hero.y - config.height / 2;
+
+    // 상태바 배경 좌상단 고정
+    this.status.setPosition(
+      this.hero.x - config.width / 2 + config.width / 200,
+      this.hero.y - config.height / 2 + config.height / 200
+    );
 
     this.selectClosest = this.getClosestEnemyToPlayer();
   }
