@@ -1,17 +1,21 @@
 import Explosion from '../effects/Explosion.js';
 
-export function hurt(scene, attack, enemy, damage){
+export function hurt(scene, attack, enemy, damage, score){
   attack.destroy();
   enemy.hp -= damage;
 
   blink(scene, enemy);
 
+  // hp가 0 이하면 인스턴스의 모든 이벤트를 제거하고 삭제
   if(enemy.hp <= 0){
     new Explosion(scene, enemy.x, enemy.y);
     scene.explosion_sound.play();
     enemy.move.forEach(event => {
       event.remove();
     });
+
+    scene.score += score;
+    scene.scoreLabel.setText(scene.getScoreText());
     enemy.destroy();
   }
 }
@@ -28,7 +32,7 @@ function blink(scene, enemy){
     repeat: repeatCount,
     callback: () => {
       if (enemy.alpha == 1) {
-        enemy.alpha = 0.5;
+        enemy.alpha = 0.1;
       } else {
         enemy.alpha = 1;
       }

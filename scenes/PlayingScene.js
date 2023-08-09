@@ -2,7 +2,7 @@ import config from '../config.js';
 import Hero from '../characters/Hero.js';
 import Bat from '../characters/Bat.js';
 import { getRandomPosition } from '../utility/Math.js';
-import { hurt } from '../utility/Battle.js';
+import { hurt } from '../utility/Collision.js';
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -39,11 +39,29 @@ export default class PlayingScene extends Phaser.Scene {
     this.attackGroup = this.add.group();  //공격은 물리효과 없음.
 
     //충돌
-    //enemyGroup이 가져야 할 멤버 hp, damage
+    //enemyGroup이 가져야 할 멤버 hp, damage, score
     //attackGroup이 가져야 할 멤버 damage 
     this.physics.add.overlap(this.attackGroup, this.enemyGroup, (attack, enemy) => {
-      hurt(this, attack, enemy, attack.damege);
+      hurt(this, attack, enemy, attack.damege, enemy.score);
     }, null, this);
+
+    // score
+    this.score = 0;
+    this.scoreLabel = this.add.bitmapText(config.width - 10, 1, "font", this.getScoreText(), 40);
+    this.scoreLabel.setOrigin(1, 0);
+    this.scoreLabel.setScrollFactor(0);
+    this.scoreLabel.setDepth(10);
+    /*
+    const graphics = this.add.graphics();
+    graphics.fillStyle(0x28288C);
+    graphics.fillRect(config.width / 2, 0, config.width / 2, 30);
+    graphics.setDepth(10);
+    graphics.setScrollFactor(0);
+    */
+  }
+
+  getScoreText() {
+    return `SCORE ${this.score.toString().padStart(6, '0')}`;
   }
 
   update(){
