@@ -1,5 +1,7 @@
 import Explosion from '../effects/Explosion.js';
 import PlayingScene from '../scenes/PlayingScene.js';
+import Hero from '../characters/Hero.js';
+import { ITEM_TYPE } from "../utility/ItemType.js";
 
 export function hit(scene, attack, enemy, damage, score){
 
@@ -32,12 +34,12 @@ export function hit(scene, attack, enemy, damage, score){
     scene.scoreLabel.setText(scene.getScoreText());
     enemy.destroy();
 
+    /*
     if(PlayingScene.score == 1){
       scene.scene.pause(scene.scene.key);
       scene.scene.launch('ModalScene', { playingScene: scene, depth: 99 });
-
-      //scene.resume();
     }
+    */
   }
 }
 
@@ -91,6 +93,27 @@ export function hurt(scene, hero, damage){
 function resetHero(hero) {
   hero.enableBody(true, hero.x, hero.y, true, true);
   hero.alpha = 1;
+}
+
+export function gain(scene, hero, item){
+  if(item.itemType == ITEM_TYPE.JEWEL){
+    switch(item.jewelNo){
+      case 0:
+        Hero.jewel_0++;
+        break;
+      case 1:
+        Hero.jewel_1++;
+        break;
+      case 2:
+        Hero.jewel_2++;
+        break;
+      case 3:
+        Hero.jewel_3++;
+        break;
+    }
+  }
+  item.destroy();
+  scene.gain_sound.play();
 }
 
 /**

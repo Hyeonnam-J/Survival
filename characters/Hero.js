@@ -3,6 +3,11 @@ import FireRing from "../attacks/FireRing.js";
 import { mySetCircle, mySetSize } from "../utility/Collision.js";
 
 export default class Hero extends Phaser.Physics.Arcade.Sprite{
+  static jewel_0 = 0;
+  static jewel_1 = 0;
+  static jewel_2 = 0;
+  static jewel_3 = 0;
+
   constructor(scene, x, y, texture, animKey){
     super(scene, x, y, texture);
 

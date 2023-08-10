@@ -3,6 +3,7 @@ import { mySetCircle } from "../utility/Collision.js";
 export default class Fire extends Phaser.Physics.Arcade.Image {
   constructor(scene, fireRing) {
     super(scene, fireRing.x, fireRing.y, "fire_img");
+    //this.setDepth(50);
 
     this.duration = 4000;
     this.power = 10;

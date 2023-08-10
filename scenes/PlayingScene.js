@@ -4,7 +4,7 @@ import Bat from '../characters/Bat.js';
 import Battleship from '../characters/Battleship.js';
 import Status from '../ui/Status.js';
 import { getRandomPosition } from '../utility/Math.js';
-import { hit, hurt } from '../utility/Collision.js';
+import { hit, hurt, gain } from '../utility/Collision.js';
 import Fire from '../attacks/Fire.js';
 
 export default class PlayingScene extends Phaser.Scene {
@@ -26,10 +26,12 @@ export default class PlayingScene extends Phaser.Scene {
     this.destroy_sound = this.sound.add('destroy_audio');
     this.hurt_sound = this.sound.add('hurt_audio');
     this.fire_sound = this.sound.add('fire_audio');
+    this.gain_sound = this.sound.add('gain_audio');
 
     //배경
     this.background = this.add.tileSprite(0, 0, config.width, config.height, "background_img");
     this.background.setOrigin(0, 0);
+    this.background.setDepth(-99);
     /*
     this.background.setScale(
       this.sys.canvas.width / this.background.width,
@@ -48,6 +50,9 @@ export default class PlayingScene extends Phaser.Scene {
     //공격
     this.attackGroup = this.add.group();  //공격은 물리효과 없음.
 
+    //item
+    this.itemGroup = this.add.group();
+
     //충돌
     //enemyGroup이 가져야 할 멤버 hp, power, score, [, deathEffect]
     //attackGroup이 가져야 할 멤버 power [, attackEffect]
@@ -57,6 +62,10 @@ export default class PlayingScene extends Phaser.Scene {
 
     this.physics.add.overlap(this.hero, this.enemyGroup, (hero, enemy) => {
       hurt(this, hero, enemy.power);
+    }, null, this);
+
+    this.physics.add.overlap(this.hero, this.itemGroup, (hero, item) => {
+      gain(this, hero, item);
     }, null, this);
 
     // score

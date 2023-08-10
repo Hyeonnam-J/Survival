@@ -15,6 +15,7 @@ export default class LoadingScene extends Phaser.Scene {
     this.load.audio('destroy_audio', '../assets/sounds/destroy.mp3');
     this.load.audio('hurt_audio', '../assets/sounds/hurt.mp3');
     this.load.audio('fire_audio', '../assets/sounds/fire.mp3');
+    this.load.audio('gain_audio', '../assets/sounds/gain.ogg');
 
     this.load.image("background_img", "../assets/images/background.jpg");
     this.load.image("fireBall_img", "../assets/images/fireBall.png");
@@ -34,6 +35,11 @@ export default class LoadingScene extends Phaser.Scene {
     });
 
     this.load.spritesheet("explosion_sprite", "../assets/spritesheets/explosion.png", {
+      frameWidth: 16,
+      frameHeight: 16
+    });
+
+    this.load.spritesheet("jewel_sprite", "../assets/spritesheets/jewel.png", {
       frameWidth: 16,
       frameHeight: 16
     });

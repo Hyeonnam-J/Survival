@@ -1,5 +1,6 @@
 import { mySetSize } from "../utility/Collision.js";
 import Explosion from '../effects/Explosion.js';
+import Jewel from '../items/Jewel.js';
 
 export default class Bat extends Phaser.Physics.Arcade.Sprite{
   constructor(scene, x, y, texture, animKey){
@@ -15,7 +16,7 @@ export default class Bat extends Phaser.Physics.Arcade.Sprite{
     };
     
     this.speed = 50;
-    this.hp = 20;
+    this.hp = 10;
     this.score = 1;
     this.power = 10;
 
@@ -31,6 +32,7 @@ export default class Bat extends Phaser.Physics.Arcade.Sprite{
 
   deathEffect(scene, enemy){
     new Explosion(scene, enemy.x, enemy.y);
+    new Jewel(scene, enemy.x, enemy.y);
     scene.burning_sound.play();
   }
 }
