@@ -75,6 +75,7 @@ export function hurt(scene, hero, damage){
   scene.status.drawBar(scene, scene.status.hpBar, scene.status.border, scene.status.border, 0xff0000);
 
   if(hero.currentHp <= 0){
+    scene.gameover_sound.play();
     scene.scene.start("GameOverScene", { score : PlayingScene.score });
   }
   
