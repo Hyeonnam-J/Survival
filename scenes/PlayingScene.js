@@ -8,6 +8,9 @@ import { hit, hurt } from '../utility/Collision.js';
 import Fire from '../attacks/Fire.js';
 
 export default class PlayingScene extends Phaser.Scene {
+
+  static score = 0;
+
   constructor() {
     super("PlayingScene");
   }
@@ -56,7 +59,6 @@ export default class PlayingScene extends Phaser.Scene {
     }, null, this);
 
     // score
-    this.score = 0;
     this.scoreLabel 
       = this.add.bitmapText(
         config.width - (config.width / 100), 
@@ -86,9 +88,10 @@ export default class PlayingScene extends Phaser.Scene {
   }
 
   getScoreText() {
-    return `SCORE ${this.score.toString().padStart(6, '0')}`;
+    return `SCORE ${PlayingScene.score.toString().padStart(6, '0')}`;
   }
 
+  // time 안 쓰더라도 없으면 deltaTime 적용이 안 됨.
   update(time, deltaTime){
     this.hero.update(this.cursors);
 
@@ -104,8 +107,10 @@ export default class PlayingScene extends Phaser.Scene {
       this.hero.y - config.height / 2 + config.height / 200
     );
 
+    // 가장 가까운 적 찾기
     this.selectClosest = this.getClosestEnemyToPlayer();
 
+    // Splash damage
     this.attackGroup.getChildren().forEach(attack => {
       if (attack instanceof Fire) {
           attack.update(deltaTime);
@@ -113,7 +118,6 @@ export default class PlayingScene extends Phaser.Scene {
     });
   }
 
-  //가장 가까운 적 찾기.
   getClosestEnemyToPlayer() {
     let closestEnemy = null;
     let closestDistance = Number.MAX_VALUE;

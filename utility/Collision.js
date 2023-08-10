@@ -1,4 +1,5 @@
 import Explosion from '../effects/Explosion.js';
+import PlayingScene from '../scenes/PlayingScene.js';
 
 export function hit(scene, attack, enemy, damage, score){
   if(typeof attack.effect === "function"){
@@ -21,7 +22,7 @@ export function hit(scene, attack, enemy, damage, score){
       event.remove();
     });
 
-    scene.score += score;
+    PlayingScene.score += score;
     scene.scoreLabel.setText(scene.getScoreText());
     enemy.destroy();
   }
@@ -59,7 +60,7 @@ export function hurt(scene, hero, damage){
   scene.status.drawBar(scene, scene.status.hpBar, scene.status.border, scene.status.border, 0xff0000);
 
   if(hero.currentHp <= 0){
-    scene.scene.start("GameOverScene", { score : scene.score });
+    scene.scene.start("GameOverScene", { score : PlayingScene.score });
   }
   
   hero.disableBody(true, false);

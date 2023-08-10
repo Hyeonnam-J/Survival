@@ -7,7 +7,7 @@ export default class Bat extends Phaser.Physics.Arcade.Sprite{
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
-    mySetSize(this, 2, 2);
+    mySetSize(this, 1.5, 1.5);
 
     if(animKey){
       this.play(animKey);

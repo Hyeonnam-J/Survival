@@ -15,7 +15,7 @@ export default class Hero extends Phaser.Physics.Arcade.Sprite{
     this.play(this.currentAnimKey);
 
     this.speed = 5;
-    this.maxHp = 100000;
+    this.maxHp = 100;
     this.currentHp = this.maxHp;
     this.maxMp = 100;
     this.currentMp = this.maxMp;

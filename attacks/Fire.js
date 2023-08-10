@@ -19,7 +19,7 @@ export default class Fire extends Phaser.Physics.Arcade.Image {
   }
 
   effect(enemy){
-    
+    // hit에서 공격 사라지고 적에게 데미지주는 로직으로 안 가기 위한 빈 메서드.
   }
 
   update(deltaTime) {
