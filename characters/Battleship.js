@@ -1,4 +1,4 @@
-import { mySetSize } from "../utility/Collision.js";
+import { mySetSize, enemyMove } from "../utility/Collision.js";
 import Explosion from "../effects/Explosion.js";
 import Unit from '../utility/Unit.js';
 
@@ -17,13 +17,7 @@ export default class Battleship extends Phaser.Physics.Arcade.Image{
     this.power = Unit.enemyPower * 2.5;
 
     this.move = [];
-    this.move.push(this.scene.time.addEvent({
-      delay: Unit.enemyMoveTerm,
-      callback: () => {
-        scene.physics.moveToObject(this, scene.hero, this.speed);
-      },
-      loop: true,
-    }));
+    enemyMove(this, scene, this.move, this.speed);
   };
 
   deathEffect(scene, enemy){

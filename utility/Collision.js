@@ -2,6 +2,7 @@ import Explosion from '../effects/Explosion.js';
 import PlayingScene from '../scenes/PlayingScene.js';
 import Hero from '../characters/Hero.js';
 import { ITEM_TYPE } from "../utility/ItemType.js";
+import Unit from '../utility/Unit.js';
 
 export function hit(scene, attack, enemy, damage, score){
 
@@ -18,6 +19,7 @@ export function hit(scene, attack, enemy, damage, score){
   if(enemy.hp <= 0){
 
     // 적 객체 죽음에 고유한 효과가 있다면, - 파괴 사운드, 파괴 애니메이션이 처리되어야 한다
+    // + item 처리
     if(typeof enemy.deathEffect === "function"){
       enemy.deathEffect(scene, enemy);
     }else{
@@ -147,4 +149,14 @@ export function mySetCircle(gameObject, scaleValue, hitboxValue){
   let offsetX = (gameObject.width - gameObject.body.width) / 2;
   let offsetY = (gameObject.height - gameObject.body.height) / 2;
   gameObject.body.setOffset(offsetX, offsetY);
+}
+
+export function enemyMove(gameObject, scene, move, speed){
+  move.push(gameObject.scene.time.addEvent({
+    delay: Unit.enemyMoveTerm,
+    callback: () => {
+      scene.physics.moveToObject(gameObject, scene.hero, speed);
+    },
+    loop: true,
+  }));
 }
