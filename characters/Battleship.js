@@ -1,4 +1,5 @@
 import { mySetSize } from "../utility/Collision.js";
+import Explosion from "../effects/Explosion.js";
 
 export default class Battleship extends Phaser.Physics.Arcade.Image{
   constructor(scene, x, y, texture, animKey){
@@ -23,4 +24,9 @@ export default class Battleship extends Phaser.Physics.Arcade.Image{
       loop: true,
     }));
   };
+
+  deathEffect(scene, enemy){
+    new Explosion(scene, enemy.x, enemy.y);
+    scene.destroy_sound.play();
+  }
 }

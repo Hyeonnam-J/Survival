@@ -38,7 +38,7 @@ export default class FireRing extends Phaser.Physics.Arcade.Image {
         this.body.velocity.y = (_y / _r) * this.speed;
     }
 
-    effect(enemy){
+    attackEffect(enemy){
         new Fire(this.scene, this);
         this.destroy();
     }

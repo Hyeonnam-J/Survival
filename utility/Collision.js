@@ -2,8 +2,10 @@ import Explosion from '../effects/Explosion.js';
 import PlayingScene from '../scenes/PlayingScene.js';
 
 export function hit(scene, attack, enemy, damage, score){
-  if(typeof attack.effect === "function"){
-    attack.effect(enemy);
+
+  // 공격 객체에 고유한 효과가 있다면, - 공격 객체 파괴와 적 데미지 피해가 처리되어야 한다
+  if(typeof attack.attackEffect === "function"){
+    attack.attackEffect(enemy);
   }else{
     attack.destroy();
     enemy.hp -= damage;
@@ -11,13 +13,17 @@ export function hit(scene, attack, enemy, damage, score){
 
   enemyBlink(scene, enemy);
 
-  // hp가 0 이하면 인스턴스의 모든 이벤트를 제거하고 삭제
   if(enemy.hp <= 0){
-    
-    //Explosion 말고 적 종류에 따라 바뀌어야 해
-    new Explosion(scene, enemy.x, enemy.y);
-    scene.explosion_sound.play();
 
+    // 적 객체 죽음에 고유한 효과가 있다면, - 파괴 사운드, 파괴 애니메이션이 처리되어야 한다
+    if(typeof enemy.deathEffect === "function"){
+      enemy.deathEffect(scene, enemy);
+    }else{
+      // new Explosion(scene, enemy.x, enemy.y);
+      // scene.burning_sound.play();
+    }
+
+    // 인스턴스의 모든 이벤트를 제거하고 삭제
     enemy.move.forEach(event => {
       event.remove();
     });

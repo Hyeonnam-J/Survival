@@ -22,7 +22,8 @@ export default class PlayingScene extends Phaser.Scene {
 
     //사운드
     this.fireBall_sound = this.sound.add('fireBall_audio');
-    this.explosion_sound = this.sound.add('explosion_audio');
+    this.burning_sound = this.sound.add('burning_audio');
+    this.destroy_sound = this.sound.add('destroy_audio');
     this.hurt_sound = this.sound.add('hurt_audio');
     this.fire_sound = this.sound.add('fire_audio');
 
@@ -48,8 +49,8 @@ export default class PlayingScene extends Phaser.Scene {
     this.attackGroup = this.add.group();  //공격은 물리효과 없음.
 
     //충돌
-    //enemyGroup이 가져야 할 멤버 hp, damage, score
-    //attackGroup이 가져야 할 멤버 damage 
+    //enemyGroup이 가져야 할 멤버 hp, power, score, [, deathEffect]
+    //attackGroup이 가져야 할 멤버 power [, attackEffect]
     this.physics.add.overlap(this.attackGroup, this.enemyGroup, (attack, enemy) => {
       hit(this, attack, enemy, attack.power, enemy.score);
     }, null, this);
@@ -85,6 +86,7 @@ export default class PlayingScene extends Phaser.Scene {
       this.hero.y - config.height / 2 + config.height / 200,
       this.hero
     );
+    this.status.setDepth(10);
   }
 
   getScoreText() {
