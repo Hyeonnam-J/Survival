@@ -7,7 +7,7 @@ export default class Battleship extends Phaser.Physics.Arcade.Image{
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
-    mySetSize(this, 0.1);
+    mySetSize(this, 0.2, 0.2);
     
     this.speed = 30;
     this.hp = 40;

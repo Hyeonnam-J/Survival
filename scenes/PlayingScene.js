@@ -5,6 +5,7 @@ import Battleship from '../characters/Battleship.js';
 import Status from '../ui/Status.js';
 import { getRandomPosition } from '../utility/Math.js';
 import { hit, hurt } from '../utility/Collision.js';
+import Fire from '../attacks/Fire.js';
 
 export default class PlayingScene extends Phaser.Scene {
   constructor() {
@@ -20,6 +21,7 @@ export default class PlayingScene extends Phaser.Scene {
     this.fireBall_sound = this.sound.add('fireBall_audio');
     this.explosion_sound = this.sound.add('explosion_audio');
     this.hurt_sound = this.sound.add('hurt_audio');
+    this.fire_sound = this.sound.add('fire_audio');
 
     //배경
     this.background = this.add.tileSprite(0, 0, config.width, config.height, "background_img");
@@ -87,7 +89,7 @@ export default class PlayingScene extends Phaser.Scene {
     return `SCORE ${this.score.toString().padStart(6, '0')}`;
   }
 
-  update(){
+  update(time, deltaTime){
     this.hero.update(this.cursors);
 
     // 배경이 주인공 따라오게
@@ -103,6 +105,12 @@ export default class PlayingScene extends Phaser.Scene {
     );
 
     this.selectClosest = this.getClosestEnemyToPlayer();
+
+    this.attackGroup.getChildren().forEach(attack => {
+      if (attack instanceof Fire) {
+          attack.update(deltaTime);
+      }
+    });
   }
 
   //가장 가까운 적 찾기.

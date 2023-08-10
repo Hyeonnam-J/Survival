@@ -13,12 +13,13 @@ export default class LoadingScene extends Phaser.Scene {
     this.load.audio('fireBall_audio', '../assets/sounds/fireBall.ogg');
     this.load.audio('explosion_audio', '../assets/sounds/explosion.ogg');
     this.load.audio('hurt_audio', '../assets/sounds/hurt.mp3');
+    this.load.audio('fire_audio', '../assets/sounds/fire.mp3');
 
     this.load.image("background_img", "../assets/images/background.jpg");
     this.load.image("fireBall_img", "../assets/images/fireBall.png");
     this.load.image("battleship_img", "../assets/images/battleship.png");
-    this.load.image("iceRing_img", "../assets/images/iceRing.png");
-    this.load.image("iceExplosion_img", "../assets/images/iceExplosion.png");
+    this.load.image("fireRing_img", "../assets/images/fireRing.png");
+    this.load.image("fire_img", "../assets/images/fire.png");
 
     //frame 너비와 높이로 사진을 그냥 잘라버린다. 단위는 px. 사진의 크기를 보고 값을 매길 것.
     this.load.spritesheet("hero_sprite", "../assets/spritesheets/hero.png", {

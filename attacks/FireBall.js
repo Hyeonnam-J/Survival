@@ -13,7 +13,7 @@ export default class FireBall extends Phaser.Physics.Arcade.Image {
         scene.add.existing(this);
         scene.physics.world.enableBody(this);
         
-        mySetCircle(this, 0.2); // 물리성 부여 후에 setCircle 사용 가능.
+        mySetCircle(this, 0.2, 0.2); // 물리성 부여 후에 setCircle 사용 가능.
 
         this.setVelocity();
 

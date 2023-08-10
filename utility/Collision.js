@@ -1,8 +1,12 @@
 import Explosion from '../effects/Explosion.js';
 
 export function hit(scene, attack, enemy, damage, score){
-  attack.destroy();
-  enemy.hp -= damage;
+  if(typeof attack.effect === "function"){
+    attack.effect(enemy);
+  }else{
+    attack.destroy();
+    enemy.hp -= damage;
+  }
 
   enemyBlink(scene, enemy);
 
@@ -79,23 +83,30 @@ function resetHero(hero) {
  * 
  * 스케일과 히트박스 동시 조정.
  */
-export function mySetSize(gameObject, value){
-  gameObject.setScale(value);
+export function mySetSize(gameObject, scaleValue, hitboxValue){
+  gameObject.setScale(scaleValue);
 
   // setScale을 먼저 적용했다면 width의 값이 그만큼 증가하기 때문에 scale 값으로 나눠줌.
   let originalWidth = gameObject.width / gameObject.scaleX;
   let originalHeight = gameObject.height / gameObject.scaleY;
-  gameObject.body.setSize(originalWidth * value, originalHeight * value);
+  gameObject.body.setSize(originalWidth * hitboxValue, originalHeight * hitboxValue);
 
+  let offsetX = (gameObject.width - gameObject.body.width) / 2;
+  let offsetY = (gameObject.height - gameObject.body.height) / 2;
+  gameObject.body.setOffset(offsetX, offsetY);
 }
 
 /**
  * 
  * 스케일과 히트박스 동시 조정.
  */
-export function mySetCircle(gameObject, value){
-  gameObject.setScale(value);
+export function mySetCircle(gameObject, scaleValue, hitboxValue){
+  gameObject.setScale(scaleValue);
   // setScale을 먼저 적용했다면 width의 값이 그만큼 증가하기 때문에 scale 값으로 나눠줌.
   const r = (gameObject.width / gameObject.scaleX) / 2;
-  gameObject.setCircle(r * value); //setScale과 다르게 setCircle의 인수는 반지름의 길이.
+  gameObject.setCircle(r * hitboxValue); //setScale과 다르게 setCircle의 인수는 반지름의 길이.
+
+  let offsetX = (gameObject.width - gameObject.body.width) / 2;
+  let offsetY = (gameObject.height - gameObject.body.height) / 2;
+  gameObject.body.setOffset(offsetX, offsetY);
 }
