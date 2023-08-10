@@ -17,8 +17,10 @@ export default class PlayingScene extends Phaser.Scene {
 
   create() {
 
-    //키보드 입력 활성화.
+    // 키보드 입력 활성화.
     this.cursors = this.input.keyboard.createCursorKeys();
+    // escKey 입력 활성화.
+    this.escKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
     //사운드
     this.fireBall_sound = this.sound.add('fireBall_audio');
@@ -106,6 +108,11 @@ export default class PlayingScene extends Phaser.Scene {
   // time 안 쓰더라도 없으면 deltaTime 적용이 안 됨.
   update(time, deltaTime){
     this.hero.update(this.cursors);
+    
+    if (this.escKey.isDown) {
+      console.log("ESC key pressed!");
+      // 설정창 로직 ...
+    }
 
     // 배경이 주인공 따라오게
     this.background.setX(this.hero.x - config.width / 2);
