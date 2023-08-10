@@ -1,6 +1,6 @@
 export default class Unit{
 
-  static heroMoveSpeed = 3;
+  static heroMoveSpeed = 2;
   static heroMaxHp = 100;
   static heroMaxMp = 100;
 

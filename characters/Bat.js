@@ -16,7 +16,7 @@ export default class Bat extends Phaser.Physics.Arcade.Sprite{
       this.play(animKey);
     };
     
-    this.speed = Unit.enemyMoveSpeed * (5 / 3);
+    this.speed = Unit.enemyMoveSpeed * 2;
     this.hp = Unit.enemyHp;
     this.score = Unit.enemyScore;
     this.power = Unit.enemyPower;
@@ -27,7 +27,12 @@ export default class Bat extends Phaser.Physics.Arcade.Sprite{
   
   deathEffect(scene, enemy){
     new Explosion(scene, enemy.x, enemy.y);
-    new Jewel(scene, enemy.x, enemy.y);
+
+    // 30% 확률로 jewel drop
+    if(0 == Phaser.Math.Between(0, 2)){
+      new Jewel(scene, enemy.x, enemy.y);
+    }
+    
     scene.burning_sound.play();
   }
 }
