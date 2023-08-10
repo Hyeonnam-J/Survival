@@ -16,8 +16,20 @@ export default class MainScene extends Phaser.Scene {
 
     this.add.image(config.width / 2, config.height / 2, 'hero_sprite');
 
-    new Button(config.width / 2, config.height / 2 + 150, 'Start Game', this,
-        () => this.scene.start("PlayingScene")
+    new Button(
+      this,
+      'Start Game', 
+      () => this.scene.start("PlayingScene")
+      /*
+      config.width / 2, 
+      config.height / 2 + config.height / 4, 
+      200,
+      50,
+      '#8aacc8',
+      '#000',
+      '#fff'
+      '24px'
+      */
     );
   }
 }

@@ -31,6 +31,13 @@ export function hit(scene, attack, enemy, damage, score){
     PlayingScene.score += score;
     scene.scoreLabel.setText(scene.getScoreText());
     enemy.destroy();
+
+    if(PlayingScene.score == 1){
+      scene.scene.pause(scene.scene.key);
+      scene.scene.launch('ModalScene', { playingScene: scene, depth: 99 });
+
+      //scene.resume();
+    }
   }
 }
 

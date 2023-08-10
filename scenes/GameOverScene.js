@@ -21,8 +21,10 @@ export default class GameOverScene extends Phaser.Scene {
 
     this.add.bitmapText(config.width / 2, config.height / 2, "font", `SCORE : ${this.score}`, 30).setOrigin(0.5);
 
-    const startButton = new Button(config.width / 2, config.height / 2 + 100, 'Go to Main', this,
-        () => this.scene.start("MainScene"),
+    new Button(
+      this,
+      'Go to Main', 
+      () => this.scene.start("MainScene"),
     );
   }
 }
