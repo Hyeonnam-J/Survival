@@ -1,5 +1,6 @@
 import { mySetSize } from "../utility/Collision.js";
 import Explosion from "../effects/Explosion.js";
+import Unit from '../utility/Unit.js';
 
 export default class Battleship extends Phaser.Physics.Arcade.Image{
   constructor(scene, x, y, texture, animKey){
@@ -10,14 +11,14 @@ export default class Battleship extends Phaser.Physics.Arcade.Image{
 
     mySetSize(this, 0.2, 0.2);
     
-    this.speed = 30;
-    this.hp = 40;
-    this.score = 2;
-    this.power = 25;
+    this.speed = Unit.enemyMoveSpeed;
+    this.hp = Unit.enemyMoveSpeed * 2;
+    this.score = Unit.enemyScore * 2;
+    this.power = Unit.enemyPower * 2.5;
 
     this.move = [];
     this.move.push(this.scene.time.addEvent({
-      delay: 100,
+      delay: Unit.enemyMoveTerm,
       callback: () => {
         scene.physics.moveToObject(this, scene.hero, this.speed);
       },

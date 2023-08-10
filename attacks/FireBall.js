@@ -1,4 +1,5 @@
 import { mySetCircle } from "../utility/Collision.js";
+import Unit from "../utility/Unit.js";
 
 export default class FireBall extends Phaser.Physics.Arcade.Image {
     constructor(scene, hero) {
@@ -6,9 +7,9 @@ export default class FireBall extends Phaser.Physics.Arcade.Image {
         const y = hero.y;
         super(scene, x, y, "fireBall_img");
 
-        this.speed = 200;
-        this.duration = 1000;
-        this.power = 10;
+        this.speed = Unit.heroBeamSpeed;
+        this.duration = Unit.heroAttackValidTime;
+        this.power = Unit.heroPower;
 
         scene.add.existing(this);
         scene.physics.world.enableBody(this);

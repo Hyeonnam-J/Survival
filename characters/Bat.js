@@ -1,6 +1,7 @@
 import { mySetSize } from "../utility/Collision.js";
 import Explosion from '../effects/Explosion.js';
 import Jewel from '../items/Jewel.js';
+import Unit from '../utility/Unit.js';
 
 export default class Bat extends Phaser.Physics.Arcade.Sprite{
   constructor(scene, x, y, texture, animKey){
@@ -15,14 +16,14 @@ export default class Bat extends Phaser.Physics.Arcade.Sprite{
       this.play(animKey);
     };
     
-    this.speed = 50;
-    this.hp = 10;
-    this.score = 1;
-    this.power = 10;
+    this.speed = Unit.enemyMoveSpeed * (5 / 3);
+    this.hp = Unit.enemyHp;
+    this.score = Unit.enemyScore;
+    this.power = Unit.enemyPower;
 
     this.move = [];
     this.move.push(this.scene.time.addEvent({
-      delay: 100,
+      delay: Unit.enemyMoveTerm,
       callback: () => {
         scene.physics.moveToObject(this, scene.hero, this.speed);
       },

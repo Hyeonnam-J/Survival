@@ -1,6 +1,7 @@
 import FireBall from "../attacks/FireBall.js";
 import FireRing from "../attacks/FireRing.js";
 import { mySetCircle, mySetSize } from "../utility/Collision.js";
+import Unit from "../utility/Unit.js";
 
 export default class Hero extends Phaser.Physics.Arcade.Sprite{
   static jewel_0 = 0;
@@ -18,27 +19,27 @@ export default class Hero extends Phaser.Physics.Arcade.Sprite{
 
     this.currentAnimKey = animKey;
     this.play(this.currentAnimKey);
-
-    this.speed = 5;
-    this.maxHp = 10;
+    
+    this.speed = Unit.heroMoveSpeed;
+    this.maxHp = Unit.heroMaxHp;
     this.currentHp = this.maxHp;
-    this.maxMp = 100;
+    this.maxMp = Unit.heroMaxMp;
     this.currentMp = this.maxMp;
-
+    
     //중첩 해시 맵 구조.
     this.attacks_map = {
       FireBall: {
-        cooldown: 1000,
+        cooldown: Unit.heroAttackCoolDown,
         lastUsed: 0
       },
       FireRing: {
-        cooldown: 4000,
+        cooldown: Unit.heroAttackCoolDown * 4,
         lastUsed: 0
       }
     }
 
     scene.time.addEvent({
-      delay: 1000,
+      delay: Unit.heroAttackDelay,
       callback: () => {
           this.attack();
       },

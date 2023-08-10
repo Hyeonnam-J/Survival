@@ -1,12 +1,13 @@
 import { mySetCircle } from "../utility/Collision.js";
+import Unit from "../utility/Unit.js";
 
 export default class Fire extends Phaser.Physics.Arcade.Image {
   constructor(scene, fireRing) {
     super(scene, fireRing.x, fireRing.y, "fire_img");
     //this.setDepth(50);
 
-    this.duration = 4000;
-    this.power = 10;
+    this.duration = Unit.heroAttackValidTime * 4;
+    this.power = Unit.heroPower;
 
     scene.add.existing(this);
     scene.physics.world.enableBody(this);
