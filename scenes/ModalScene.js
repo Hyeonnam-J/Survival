@@ -10,10 +10,17 @@ export default class ModalScene extends Phaser.Scene {
 
   init(data) {
     this.playingScene = data.playingScene;
+    this.randomAttacks = data.randomAttacks;
+    /*
+    console.log(this.randomAttacks.length);
+    console.log(this.randomAttacks[0]);
+    console.log(this.randomAttacks[1].descriptions[this.randomAttacks[1].level]);
+    */
   }
 
   create() {
     this.drawScene();
+    this.drawOptionButton();
     this.drawSelectButton();
 
     
@@ -26,7 +33,27 @@ export default class ModalScene extends Phaser.Scene {
     bg.setScrollFactor(0); 
   }
 
+  drawOptionButton(){
+
+  }
+
   drawSelectButton(){
+    new Button(
+      this,
+      'Select', 
+      this.resumeGame.bind(this),
+      config.width / 2, 
+      config.height / 2 + config.height / 3, 
+      /*
+      200,
+      50,
+      '#8aacc8',
+      '#000',
+      '#fff'
+      '24px'
+      */
+    );
+    /*
     new Button(
       this,
       'Select', 
@@ -47,6 +74,7 @@ export default class ModalScene extends Phaser.Scene {
       config.width / 2 + config.height / 5, 
       config.height / 2 + config.height / 3,
     );
+    */
   }
 
   resumeGame(){

@@ -1,6 +1,12 @@
 import { mySetCircle } from "../utility/Collision.js";
 import FireRing from "./FireRing.js";
 
+/**
+ * FireRing으로부터 생성되는 공격 오브젝트.
+ * Events class에서 randomPick 되지도 않고,
+ * 레벨은 FireRing의 레벨을 따라가고,
+ * description 객체도 FireRing에서 처리.
+ */
 export default class Fire extends Phaser.Physics.Arcade.Image {
 
   static level = 0;
