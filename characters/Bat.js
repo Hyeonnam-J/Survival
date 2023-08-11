@@ -3,6 +3,9 @@ import Explosion from '../effects/Explosion.js';
 import Jewel from '../items/Jewel.js';
 
 export default class Bat extends Phaser.Physics.Arcade.Sprite{
+
+  static generationDelay = 2000;
+
   constructor(scene, x, y, texture, animKey){
     super(scene, x, y, texture);
 

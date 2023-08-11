@@ -1,9 +1,7 @@
-import Explosion from '../effects/Explosion.js';
 import PlayingScene from '../scenes/PlayingScene.js';
 import Hero from '../characters/Hero.js';
 import { ITEM_TYPE } from "../utility/ItemType.js";
-// import Fire from '../attacks/Fire.js';
-// import FireRing from '../attacks/FireRing.js';
+import { events } from './Events.js';
 
 export function hit(scene, attack, enemy, damage, score){
 
@@ -37,12 +35,7 @@ export function hit(scene, attack, enemy, damage, score){
     scene.scoreLabel.setText(scene.getScoreText());
     enemy.destroy();
 
-    /*
-    if(PlayingScene.score == 1){
-      scene.scene.pause(scene.scene.key);
-      scene.scene.launch('ModalScene', { playingScene: scene, depth: 99 });
-    }
-    */
+    events(scene);
   }
 }
 

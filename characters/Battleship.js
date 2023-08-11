@@ -3,6 +3,9 @@ import Explosion from "../effects/Explosion.js";
 import Jewel from '../items/Jewel.js';
 
 export default class Battleship extends Phaser.Physics.Arcade.Image{
+
+  static generationDelay = 4000;
+
   constructor(scene, x, y, texture, animKey){
     super(scene, x, y, texture);
 
