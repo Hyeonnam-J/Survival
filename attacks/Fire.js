@@ -10,7 +10,7 @@ import FireRing from "./FireRing.js";
 export default class Fire extends Phaser.Physics.Arcade.Image {
 
   static level = 0;
-
+  static finalLevel = 4;
   static levelOneAbility = {
     duration: 4000,
     power: 10
@@ -45,6 +45,7 @@ export default class Fire extends Phaser.Physics.Arcade.Image {
     super(scene, fireRing.x, fireRing.y, "fire_img");
 
     Fire.level = FireRing.level;
+    Fire.finalLevel = FireRing.finalLevel;
     const ability = Fire.getLevelAbility(FireRing.level);    
     this.duration = ability.duration;
     this.power = ability.power;

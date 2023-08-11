@@ -6,24 +6,18 @@ export default class ModalScene extends Phaser.Scene {
       super("ModalScene");
 
       this.border = config.height / 10;
+      this.optionButtonMargin = 100;
   }
 
   init(data) {
     this.playingScene = data.playingScene;
     this.randomAttacks = data.randomAttacks;
-    /*
-    console.log(this.randomAttacks.length);
-    console.log(this.randomAttacks[0]);
-    console.log(this.randomAttacks[1].descriptions[this.randomAttacks[1].level]);
-    */
   }
 
   create() {
     this.drawScene();
     this.drawOptionButton();
     this.drawSelectButton();
-
-    
   }
 
   drawScene(){
@@ -34,7 +28,23 @@ export default class ModalScene extends Phaser.Scene {
   }
 
   drawOptionButton(){
-
+    for(let i = 0; i < this.randomAttacks.length; i++){
+      new Button(
+        this,
+        this.randomAttacks[i].descriptions[this.randomAttacks[i].level+1],
+        this.resumeGame.bind(this),
+        config.width / 2, 
+        config.height / 4 + this.optionButtonMargin * i,
+        config.width,
+        100,
+        /*
+        '#8aacc8',
+        '#000',
+        '#fff'
+        '24px'
+        */
+      );
+    }
   }
 
   drawSelectButton(){

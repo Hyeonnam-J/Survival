@@ -4,6 +4,7 @@ import Fire from "./Fire.js";
 export default class FireRing extends Phaser.Physics.Arcade.Image {
 
     static level = 0;
+    static finalLevel = 4;
     static descriptions = {
         1: '파이어 링 공격을 사용할 수 있다',
         2: '레벨 2로 업그레이드 시 파이어 링의 속도가 빨라집니다.',
