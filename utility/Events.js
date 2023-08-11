@@ -42,7 +42,7 @@ export function events(scene){
     let randomAttacks = pickAttacksArr();
     // 공식문서를 보면 파라미터가 key, data인데,
     // data의 파라미터 타입이 object고, 자바스크립트는 object를 중괄호를 쳐서 표현.
-    scene.scene.launch('ModalScene', { playingScene: scene, randomAttacks: randomAttacks });
+    scene.scene.launch('EventScene', { playingScene: scene, randomAttacks: randomAttacks });
   }
 
   lastScore = PlayingScene.score;

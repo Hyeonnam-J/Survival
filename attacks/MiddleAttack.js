@@ -3,6 +3,7 @@ import { mySetCircle } from "../utility/Collision.js";
 export default class MiddleAttack extends Phaser.Physics.Arcade.Image {
 
     static level = 3;
+    static finalLevel = 4;
     static descriptions = {
         1: 'Middle-1',
         2: 'Middle-2',

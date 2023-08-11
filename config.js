@@ -1,14 +1,15 @@
 import LoadingScene from './scenes/LoadingScene.js';
 import MainScene from './scenes/MainScene.js';
 import PlayingScene from './scenes/PlayingScene.js';
-import ModalScene from './scenes/ModalScene.js';
+import StatusScene from './scenes/StatusScene.js';
+import EventScene from './scenes/EventScene.js';
 import GameOverScene from './scenes/GameOverScene.js';
 
 var config = {
   width: 800,
   height: 600,
   backgroundColor: 0x000000,
-  scene: [LoadingScene, MainScene, PlayingScene, ModalScene, GameOverScene],
+  scene: [LoadingScene, MainScene, PlayingScene, StatusScene, EventScene, GameOverScene],
   pixelArt: true,
   physics: {
     default: "arcade",

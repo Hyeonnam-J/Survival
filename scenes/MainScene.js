@@ -19,7 +19,7 @@ export default class MainScene extends Phaser.Scene {
     new Button(
       this,
       'Start Game', 
-      () => this.scene.start("PlayingScene")
+      () => this.scene.start("PlayingScene")  //화살표 함수를 사용하면 바인딩하지 않아도 된다
       /*
       config.width / 2, 
       config.height / 2 + config.height / 4, 

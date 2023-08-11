@@ -1,9 +1,9 @@
 import config from "../config.js";
 import Button from "../ui/Button.js";
 
-export default class ModalScene extends Phaser.Scene {
+export default class EventScene extends Phaser.Scene {
   constructor() {
-      super("ModalScene");
+      super("EventScene");
 
       this.border = config.height / 10;
       this.optionButtonMargin = 100;

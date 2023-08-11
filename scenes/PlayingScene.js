@@ -106,10 +106,11 @@ export default class PlayingScene extends Phaser.Scene {
   // time 안 쓰더라도 없으면 deltaTime 적용이 안 됨.
   update(time, deltaTime){
     this.hero.update(this.cursors);
-    
+
     if (this.escKey.isDown) {
-      console.log("ESC key pressed!");
-      // 설정창 로직 ...
+      this.escKey.isDown = false; //게임을 일시중지하고 다시 돌아올 때까지 esc 입력이 유지된 상태로 처리될 수 있다.
+      this.scene.pause();
+      this.scene.launch('StatusScene', { playingScene: this, hero: this.hero });
     }
 
     // 배경이 주인공 따라오게
