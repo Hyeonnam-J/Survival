@@ -2,7 +2,8 @@ import Explosion from '../effects/Explosion.js';
 import PlayingScene from '../scenes/PlayingScene.js';
 import Hero from '../characters/Hero.js';
 import { ITEM_TYPE } from "../utility/ItemType.js";
-import Unit from '../utility/Unit.js';
+// import Fire from '../attacks/Fire.js';
+// import FireRing from '../attacks/FireRing.js';
 
 export function hit(scene, attack, enemy, damage, score){
 
@@ -153,7 +154,7 @@ export function mySetCircle(gameObject, scaleValue, hitboxValue){
 
 export function enemyMove(gameObject, scene, move, speed){
   move.push(gameObject.scene.time.addEvent({
-    delay: Unit.enemyMoveTerm,
+    delay: 100,
     callback: () => {
       scene.physics.moveToObject(gameObject, scene.hero, speed);
     },

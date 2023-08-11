@@ -6,7 +6,6 @@ import Status from '../ui/Status.js';
 import { getRandomPosition } from '../utility/Math.js';
 import { hit, hurt, gain } from '../utility/Collision.js';
 import Fire from '../attacks/Fire.js';
-import Unit from "../utility/Unit.js";
 
 export default class PlayingScene extends Phaser.Scene {
 
@@ -48,8 +47,8 @@ export default class PlayingScene extends Phaser.Scene {
 
     //적
     this.enemyGroup = this.physics.add.group();  //적은 물리효과 있음.
-    this.addEnemy(Bat, "bat_sprite", "bat_anim", Unit.enemyGenerationDelay);
-    this.addEnemy(Battleship, "battleship_img", null, Unit.enemyGenerationDelay * 2);
+    this.addEnemy(Bat, "bat_sprite", "bat_anim", 2000);
+    this.addEnemy(Battleship, "battleship_img", null, 4000);
 
     //공격
     this.attackGroup = this.add.group();  //공격은 물리효과 없음.

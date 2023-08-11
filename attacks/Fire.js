@@ -1,13 +1,47 @@
 import { mySetCircle } from "../utility/Collision.js";
-import Unit from "../utility/Unit.js";
+import FireRing from "./FireRing.js";
 
 export default class Fire extends Phaser.Physics.Arcade.Image {
+
+  static level = 0;
+
+  static levelOneAbility = {
+    duration: 4000,
+    power: 10
+  };
+
+  static levelUpModifiers = {
+    2: {
+        duration: (prev) => prev,
+        power: (prev) => prev
+    },
+    3: {
+        duration: (prev) => prev, 
+        power: (prev) => prev
+    }
+  };
+
+  static getLevelAbility(level) {
+    let ability = { ...this.levelOneAbility };
+
+    for (let i = 2; i <= level; i++) {
+        if (this.levelUpModifiers[i]) {
+            const modifiers = this.levelUpModifiers[i];
+            ability.duration = modifiers.duration(ability.duration);
+            ability.power = modifiers.power(ability.power);
+        }
+    }
+
+    return ability;
+  }
+
   constructor(scene, fireRing) {
     super(scene, fireRing.x, fireRing.y, "fire_img");
-    //this.setDepth(50);
 
-    this.duration = Unit.heroAttackValidTime * 4;
-    this.power = Unit.heroPower;
+    Fire.level = FireRing.level;
+    const ability = Fire.getLevelAbility(FireRing.level);    
+    this.duration = ability.duration;
+    this.power = ability.power;
 
     scene.add.existing(this);
     scene.physics.world.enableBody(this);

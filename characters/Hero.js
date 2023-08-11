@@ -1,7 +1,6 @@
 import FireBall from "../attacks/FireBall.js";
 import FireRing from "../attacks/FireRing.js";
 import { mySetCircle, mySetSize } from "../utility/Collision.js";
-import Unit from "../utility/Unit.js";
 
 export default class Hero extends Phaser.Physics.Arcade.Sprite{
   static jewel_0 = 0;
@@ -20,26 +19,26 @@ export default class Hero extends Phaser.Physics.Arcade.Sprite{
     this.currentAnimKey = animKey;
     this.play(this.currentAnimKey);
     
-    this.speed = Unit.heroMoveSpeed;
-    this.maxHp = Unit.heroMaxHp;
+    this.speed = 2;
+    this.maxHp = 100;
     this.currentHp = this.maxHp;
-    this.maxMp = Unit.heroMaxMp;
+    this.maxMp = 100;
     this.currentMp = this.maxMp;
     
     //중첩 해시 맵 구조.
     this.attacks_map = {
       FireBall: {
-        cooldown: Unit.heroAttackCoolDown,
+        cooldown: FireBall.getLevelAbility(FireBall.level).cooldown,
         lastUsed: 0
       },
       FireRing: {
-        cooldown: Unit.heroAttackCoolDown * 4,
+        cooldown: FireRing.getLevelAbility(FireRing.level).cooldown,
         lastUsed: 0
       }
     }
 
     scene.time.addEvent({
-      delay: Unit.heroAttackDelay,
+      delay: 100, //공격이 더 빠르게 가능하도록 0.1초 단위로 이벤트 처리.
       callback: () => {
           this.attack();
       },
@@ -75,14 +74,18 @@ export default class Hero extends Phaser.Physics.Arcade.Sprite{
   }
   
   attack() {
-    if (this.canAttack('FireBall')) {
-      new FireBall(this.scene, this);
-      this.updateAttackLastUsed('FireBall');
+    if(FireBall.level > 0){
+      if (this.canAttack('FireBall')) {
+        new FireBall(this.scene, this);
+        this.updateAttackLastUsed('FireBall');
+      }
     }
   
-    if (this.canAttack('FireRing')) {
-      new FireRing(this.scene, this);
-      this.updateAttackLastUsed('FireRing');
+    if(FireRing.level > 0){
+      if (this.canAttack('FireRing')) {
+        new FireRing(this.scene, this);
+        this.updateAttackLastUsed('FireRing');
+      }
     }
   }
 

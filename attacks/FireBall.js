@@ -1,15 +1,56 @@
 import { mySetCircle } from "../utility/Collision.js";
-import Unit from "../utility/Unit.js";
 
 export default class FireBall extends Phaser.Physics.Arcade.Image {
+
+    static level = 1;
+
+    static levelOneAbility = {
+        speed: 200,
+        duration: 1000,
+        power: 10,
+        cooldown: 1000
+    };
+
+    static levelUpModifiers = {
+        2: {
+            speed: (prev) => prev,
+            duration: (prev) => prev,
+            power: (prev) => prev,
+            cooldown: (prev) => prev
+        },
+        3: {
+            speed: (prev) => prev,
+            duration: (prev) => prev, 
+            power: (prev) => prev,
+            cooldown: (prev) => prev
+        }
+    };
+
+    static getLevelAbility(level) {
+        let ability = { ...this.levelOneAbility };
+    
+        for (let i = 2; i <= level; i++) {
+            if (this.levelUpModifiers[i]) {
+                const modifiers = this.levelUpModifiers[i];
+                ability.speed = modifiers.speed(ability.speed);
+                ability.duration = modifiers.duration(ability.duration);
+                ability.power = modifiers.power(ability.power);
+                ability.cooldown = modifiers.cooldown(ability.cooldown);
+            }
+        }
+    
+        return ability;
+    }
+
     constructor(scene, hero) {
         const x = hero.x;
         const y = hero.y;
         super(scene, x, y, "fireBall_img");
 
-        this.speed = Unit.heroBeamSpeed;
-        this.duration = Unit.heroAttackValidTime;
-        this.power = Unit.heroPower;
+        const ability = FireBall.getLevelAbility(FireBall.level);
+        this.speed = ability.speed;
+        this.duration = ability.duration;
+        this.power = ability.power;
 
         scene.add.existing(this);
         scene.physics.world.enableBody(this);

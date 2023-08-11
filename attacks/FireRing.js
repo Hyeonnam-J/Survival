@@ -1,16 +1,57 @@
 import { mySetCircle } from "../utility/Collision.js";
 import Fire from "./Fire.js";
-import Unit from '../utility/Unit.js';
 
 export default class FireRing extends Phaser.Physics.Arcade.Image {
+
+    static level = 0;
+
+    static levelOneAbility = {
+        speed: 150,
+        duration: 2000,
+        power: 0,
+        cooldown: 4000
+    };
+
+    static levelUpModifiers = {
+        2: {
+            speed: (prev) => prev,
+            duration: (prev) => prev,
+            power: (prev) => prev,
+            cooldown: (prev) => prev
+        },
+        3: {
+            speed: (prev) => prev,
+            duration: (prev) => prev, 
+            power: (prev) => prev,
+            cooldown: (prev) => prev
+        }
+    };
+
+    static getLevelAbility(level) {
+        let ability = { ...this.levelOneAbility };
+    
+        for (let i = 2; i <= level; i++) {
+            if (this.levelUpModifiers[i]) {
+                const modifiers = this.levelUpModifiers[i];
+                ability.speed = modifiers.speed(ability.speed);
+                ability.duration = modifiers.duration(ability.duration);
+                ability.power = modifiers.power(ability.power);
+                ability.cooldown = modifiers.cooldown(ability.cooldown);
+            }
+        }
+    
+        return ability;
+    }
+
     constructor(scene, hero) {
         const x = hero.x;
         const y = hero.y;
         super(scene, x, y, "fireRing_img");
 
-        this.speed = Unit.heroBeamSpeed * 0.75;
-        this.duration = Unit.heroAttackValidTime * 2;
-        this.power = 0;
+        const ability = FireRing.getLevelAbility(FireRing.level);
+        this.speed = ability.speed;
+        this.duration = ability.duration;
+        this.power = ability.power;
 
         scene.add.existing(this);
         scene.physics.world.enableBody(this);
