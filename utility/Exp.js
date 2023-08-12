@@ -37,17 +37,15 @@ export function expUp(scene){
     scene.scene.pause(scene.scene.key);
     let randomAttacks = pickAttacksArr();
 
-    if (scene.cursors) {
-      scene.cursors.up.isDown = false;
-      scene.cursors.down.isDown = false;
-      scene.cursors.left.isDown = false;
-      scene.cursors.right.isDown = false;
-    }
-    scene.escKey.isDown = false; 
-
     // 공식문서를 보면 파라미터가 key, data인데,
     // data의 파라미터 타입이 object고, 자바스크립트는 object를 중괄호를 쳐서 표현.
     scene.scene.launch('LevelUpScene', { playingScene: scene, randomAttacks: randomAttacks });
+
+    scene.cursors.up.isDown = false; 
+    scene.cursors.down.isDown = false; 
+    scene.cursors.left.isDown = false; 
+    scene.cursors.right.isDown = false; 
+    scene.escKey.isDown = false;
   }
 
   const requiredExp = Hero.expForNextLevel[Hero.level+1] - Hero.expForNextLevel[Hero.level];

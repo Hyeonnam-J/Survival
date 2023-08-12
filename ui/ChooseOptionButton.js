@@ -12,13 +12,13 @@ export default class ChooseOptionButton extends Phaser.GameObjects.Container {
     backgroundColor = '#8aacc8', 
     pointeroverColor = '#000',
     pointeroutColor = '#fff',
-    fontSize = '24px'
+    fontSize = '20px'
     ) {
         super(scene, x, y);
 
         this.background = scene.add.graphics();
         this.background.fillStyle(Phaser.Display.Color.HexStringToColor(backgroundColor).color);
-        this.background.fillRect(-width / 2, -height / 2, width, height); //setOrigin이 없음
+        this.background.fillRect(-width / 2, -height / 2, width, height); // setOrigin이 없음
 
         // JavaScript ES6 객체 리터럴 속성 이름 축약
         // 변수 이름과 속성 이름이 동일할 경우 이렇게 축약 가능

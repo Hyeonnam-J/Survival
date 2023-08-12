@@ -52,12 +52,10 @@ export default class StatusScene extends Phaser.Scene {
     
     this.scene.stop(this.scene.key);
     this.scene.resume(this.playingScene.scene.key);
-
   }
 
   update(){
     if (this.escKey.isDown) {
-      this.escKey.isDown = false; //게임을 일시중지하고 다시 돌아올 때까지 esc 입력이 유지된 상태로 처리될 수 있다.
       this.scene.stop(this.scene.key);
       this.scene.resume(this.playingScene.scene.key);
     }
