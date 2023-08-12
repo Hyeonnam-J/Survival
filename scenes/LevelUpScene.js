@@ -1,5 +1,5 @@
 import config from "../config.js";
-import Button from "../ui/Button.js";
+import SelectButton from "../ui/SelectButton.js";
 
 export default class LevelUpScene extends Phaser.Scene {
   constructor() {
@@ -29,7 +29,7 @@ export default class LevelUpScene extends Phaser.Scene {
 
   drawOptionButton(){
     for(let i = 0; i < this.randomAttacks.length; i++){
-      new Button(
+      new SelectButton(
         this,
         this.randomAttacks[i].descriptions[this.randomAttacks[i].level+1],
         this.resumeGame.bind(this),
@@ -48,7 +48,7 @@ export default class LevelUpScene extends Phaser.Scene {
   }
 
   drawSelectButton(){
-    new Button(
+    new SelectButton(
       this,
       'Select', 
       this.resumeGame.bind(this),

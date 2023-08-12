@@ -89,10 +89,10 @@ export default class PlayingScene extends Phaser.Scene {
     }
 
     // 배경이 주인공 따라오게
-    this.background.setX(this.hero.x - config.width / 2);
-    this.background.setY(this.hero.y - config.height / 2);
-    this.background.tilePositionX = this.hero.x - config.width / 2;
-    this.background.tilePositionY = this.hero.y - config.height / 2;
+    this.playingSceneBackground.setX(this.hero.x - config.width / 2);
+    this.playingSceneBackground.setY(this.hero.y - config.height / 2);
+    this.playingSceneBackground.tilePositionX = this.hero.x - config.width / 2;
+    this.playingSceneBackground.tilePositionY = this.hero.y - config.height / 2;
 
     // 상태바 배경 고정
     this.status.setPosition(

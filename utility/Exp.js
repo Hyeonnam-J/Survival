@@ -28,7 +28,7 @@ function pickAttacksArr(){
   return randomAttacks;
 }
 
-export function levelup(scene){
+export function expUp(scene){
   if(Hero.expForNextLevel[Hero.level+1] <= Hero.exp){
     Hero.level++;
     scene.status.drawLevel(scene, scene.status.levelX, scene.status.levelY, Hero.level);

@@ -1,5 +1,5 @@
 import config from "../config.js";
-import Button from "../ui/Button.js";
+import SelectButton from "../ui/SelectButton.js";
 
 export default class GameOverScene extends Phaser.Scene {
   constructor() {
@@ -19,7 +19,7 @@ export default class GameOverScene extends Phaser.Scene {
 
     this.add.bitmapText(config.width / 2, config.height / 2 - 100, "font", 'Game Over', 40).setOrigin(0.5);
 
-    new Button(
+    new SelectButton(
       this,
       'Go to Main', 
       () => this.scene.start("MainScene"),

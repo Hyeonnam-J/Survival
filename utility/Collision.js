@@ -1,7 +1,7 @@
 import PlayingScene from '../scenes/PlayingScene.js';
 import Hero from '../characters/Hero.js';
 import { ITEM_TYPE } from "../utility/ItemType.js";
-import { levelup } from './LevelUp.js';
+import { expUp } from './Exp.js';
 
 export function hit(scene, attack, enemy, damage, exp){
 
@@ -34,7 +34,7 @@ export function hit(scene, attack, enemy, damage, exp){
     Hero.exp += exp;
     enemy.destroy();
 
-    levelup(scene);
+    expUp(scene);
   }
 }
 

@@ -1,5 +1,5 @@
 import config from "../config.js";
-import Button from "../ui/Button.js";
+import SelectButton from "../ui/SelectButton.js";
 
 export default class MainScene extends Phaser.Scene {
   constructor() {
@@ -23,7 +23,7 @@ export default class MainScene extends Phaser.Scene {
 
     this.add.image(config.width / 2, config.height / 2, 'hero_sprite');
 
-    new Button(
+    new SelectButton(
       this,
       'Start Game', 
       () => this.scene.start("PlayingScene")  //화살표 함수를 사용하면 바인딩하지 않아도 된다

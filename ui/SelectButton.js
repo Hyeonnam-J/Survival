@@ -1,6 +1,6 @@
 import config from '../config.js';
 
-export default class Button extends Phaser.GameObjects.Container {
+export default class SelectButton extends Phaser.GameObjects.Container {
   constructor(
     scene,  
     label, 
