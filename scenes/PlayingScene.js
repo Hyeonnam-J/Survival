@@ -31,9 +31,9 @@ export default class PlayingScene extends Phaser.Scene {
     this.levelup_sound = this.sound.add('levelup_audio');
 
     //배경
-    this.background = this.add.tileSprite(0, 0, config.width, config.height, "background_img");
-    this.background.setOrigin(0, 0);
-    this.background.setDepth(-99);
+    this.playingSceneBackground = this.add.tileSprite(0, 0, config.width, config.height, "playingSceneBackground_img");
+    this.playingSceneBackground.setOrigin(0, 0);
+    this.playingSceneBackground.setDepth(-99);
     /*
     this.background.setScale(
       this.sys.canvas.width / this.background.width,

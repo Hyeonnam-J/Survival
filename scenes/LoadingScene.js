@@ -19,7 +19,8 @@ export default class LoadingScene extends Phaser.Scene {
     this.load.audio('gameover_audio', '../assets/sounds/gameover.ogg');
     this.load.audio('levelup_audio', '../assets/sounds/levelup.mp3');
 
-    this.load.image("background_img", "../assets/images/background.jpg");
+    this.load.image("playingSceneBackground_img", "../assets/images/playingSceneBackground.jpg");
+    this.load.image("mainSceneBackground_img", "../assets/images/mainSceneBackground.jpg");
     this.load.image("fireBall_img", "../assets/images/fireBall.png");
     this.load.image("battleship_img", "../assets/images/battleship.png");
     this.load.image("fireRing_img", "../assets/images/fireRing.png");
