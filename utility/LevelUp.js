@@ -4,9 +4,7 @@ import FireRing from '../attacks/FireRing.js';
 import MiddleAttack from '../attacks/MiddleAttack.js';
 import LastAttack from '../attacks/LastAttack.js';
 import Battleship from "../characters/Battleship.js";
-import PlayingScene from "../scenes/PlayingScene.js";
-
-let lastScore = 0;
+import Hero from '../characters/Hero.js';
 
 function pickAttacksArr(){
   const ATTACKS_ARR = [FireBall, FireRing, MiddleAttack, LastAttack];
@@ -30,20 +28,15 @@ function pickAttacksArr(){
   return randomAttacks;
 }
 
-export function events(scene){
-  /*
-  if(lastScore <= 5 && PlayingScene.score > 5){
-    scene.addEnemy(Battleship, "battleship_img", null, Battleship.generationDelay);
-  }
-  */
-
-  if(lastScore <= 0 && PlayingScene.score > 0){
+export function levelup(scene){
+  
+  if(Hero.expForNextLevel[Hero.level+1] <= Hero.exp){
+    Hero.level++;
+    scene.levelup_sound.play();
     scene.scene.pause(scene.scene.key);
     let randomAttacks = pickAttacksArr();
     // 공식문서를 보면 파라미터가 key, data인데,
     // data의 파라미터 타입이 object고, 자바스크립트는 object를 중괄호를 쳐서 표현.
-    scene.scene.launch('EventScene', { playingScene: scene, randomAttacks: randomAttacks });
+    scene.scene.launch('LevelUpScene', { playingScene: scene, randomAttacks: randomAttacks });
   }
-
-  lastScore = PlayingScene.score;
 }

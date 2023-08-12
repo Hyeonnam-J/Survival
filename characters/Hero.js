@@ -3,6 +3,20 @@ import FireRing from "../attacks/FireRing.js";
 import { mySetCircle, mySetSize } from "../utility/Collision.js";
 
 export default class Hero extends Phaser.Physics.Arcade.Sprite{
+  static level = 1;
+  static exp = 0; // accumulated exp
+
+  // key-value
+  // key : hero level
+  // value : accumulated experience required for that level
+  static expForNextLevel =
+    {
+      1: 0,
+      2: 3,
+      3: 9,
+      4: 15
+    }
+
   static jewel_0 = 0;
   static jewel_1 = 0;
   static jewel_2 = 0;

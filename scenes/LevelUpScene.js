@@ -1,9 +1,9 @@
 import config from "../config.js";
 import Button from "../ui/Button.js";
 
-export default class EventScene extends Phaser.Scene {
+export default class LevelUpScene extends Phaser.Scene {
   constructor() {
-      super("EventScene");
+      super("LevelUpScene");
 
       this.border = config.height / 10;
       this.optionButtonMargin = 100;

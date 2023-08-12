@@ -16,7 +16,7 @@ export default class Battleship extends Phaser.Physics.Arcade.Image{
     
     this.speed = 30;
     this.hp = 40;
-    this.score = 2;
+    this.exp = 2;
     this.power = 20;
 
     this.move = [];

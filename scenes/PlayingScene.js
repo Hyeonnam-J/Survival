@@ -9,8 +9,6 @@ import PlayTime from '../ui/PlayTime.js';
 
 export default class PlayingScene extends Phaser.Scene {
 
-  static score = 0;
-
   constructor() {
     super("PlayingScene");
   }
@@ -30,9 +28,7 @@ export default class PlayingScene extends Phaser.Scene {
     this.fire_sound = this.sound.add('fire_audio');
     this.gain_sound = this.sound.add('gain_audio');
     this.gameover_sound = this.sound.add('gameover_audio');
-
-    // PlayTime
-    new PlayTime(this, config.width / 2, config.height / 20);
+    this.levelup_sound = this.sound.add('levelup_audio');
 
     //배경
     this.background = this.add.tileSprite(0, 0, config.width, config.height, "background_img");
@@ -59,10 +55,10 @@ export default class PlayingScene extends Phaser.Scene {
     this.itemGroup = this.add.group();
 
     //충돌
-    //enemyGroup이 가져야 할 멤버 hp, power, score, [, deathEffect]
+    //enemyGroup이 가져야 할 멤버 hp, power, exp, [, deathEffect]
     //attackGroup이 가져야 할 멤버 power [, attackEffect]
     this.physics.add.overlap(this.attackGroup, this.enemyGroup, (attack, enemy) => {
-      hit(this, attack, enemy, attack.power, enemy.score);
+      hit(this, attack, enemy, attack.power, enemy.exp);
     }, null, this);
 
     this.physics.add.overlap(this.hero, this.enemyGroup, (hero, enemy) => {
@@ -73,31 +69,13 @@ export default class PlayingScene extends Phaser.Scene {
       gain(this, hero, item);
     }, null, this);
 
-    // score
-    this.scoreLabel 
-      = this.add.bitmapText(
-        config.width - (config.width / 100), 
-        config.height / 100, 
-        "font", 
-        this.getScoreText(), 
-        40);
-    this.scoreLabel.setOrigin(1, 0);
-    this.scoreLabel.setScrollFactor(0);
-    this.scoreLabel.setDepth(10);
-
     // status
     // 맵을 확장해서 쓸 경우를 고려해 플레이어 기준으로 좌표 설정.
-    this.status = new Status(
-      this, 
-      this.hero.x - config.width / 2 + config.width / 200,
-      this.hero.y - config.height / 2 + config.height / 200,
-      this.hero
-    );
+    this.status = new Status(this, this.hero);
     this.status.setDepth(10);
-  }
 
-  getScoreText() {
-    return `SCORE ${PlayingScene.score.toString().padStart(6, '0')}`;
+    // PlayTime
+    this.playTime = new PlayTime(this);
   }
 
   // time 안 쓰더라도 없으면 deltaTime 적용이 안 됨.
@@ -121,6 +99,12 @@ export default class PlayingScene extends Phaser.Scene {
       this.hero.x - config.width / 2 + config.width / 200,
       this.hero.y - config.height / 2 + config.height / 200
     );
+
+    // playTime 배경 상단 고정
+    this.playTime.setPosition(
+      this.hero.x,
+      this.hero.y - config.height / 2 + config.height / 20
+    )
 
     // 가장 가까운 적 찾기
     this.selectClosest = this.getClosestEnemyToPlayer();

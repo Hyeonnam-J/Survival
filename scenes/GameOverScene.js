@@ -8,7 +8,7 @@ export default class GameOverScene extends Phaser.Scene {
 
   //생성자는 최초 한번이지만 init은 씬이 전환될 때마다 실행된다.
   init(data) {
-    this.score = data.score;
+    
   }
 
   create() {
@@ -18,8 +18,6 @@ export default class GameOverScene extends Phaser.Scene {
     bg.setScrollFactor(0);
 
     this.add.bitmapText(config.width / 2, config.height / 2 - 100, "font", 'Game Over', 40).setOrigin(0.5);
-
-    this.add.bitmapText(config.width / 2, config.height / 2, "font", `SCORE : ${this.score}`, 30).setOrigin(0.5);
 
     new Button(
       this,

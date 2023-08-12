@@ -1,9 +1,9 @@
 import PlayingScene from '../scenes/PlayingScene.js';
 import Hero from '../characters/Hero.js';
 import { ITEM_TYPE } from "../utility/ItemType.js";
-import { events } from './Events.js';
+import { levelup } from './LevelUp.js';
 
-export function hit(scene, attack, enemy, damage, score){
+export function hit(scene, attack, enemy, damage, exp){
 
   // 공격 객체에 고유한 효과가 있다면, - 공격 객체 파괴와 적 데미지 피해가 처리되어야 한다
   if(typeof attack.attackEffect === "function"){
@@ -31,11 +31,14 @@ export function hit(scene, attack, enemy, damage, score){
       event.remove();
     });
 
-    PlayingScene.score += score;
-    scene.scoreLabel.setText(scene.getScoreText());
+    Hero.exp += exp;
     enemy.destroy();
 
-    events(scene);
+    levelup(scene);
+
+    const requiredExp = Hero.expForNextLevel[Hero.level+1] - Hero.expForNextLevel[Hero.level];
+    const acquiredExp = Hero.exp - Hero.expForNextLevel[Hero.level]
+    scene.status.drawBar(scene, scene.status.expBar, scene.status.border, 2 * scene.status.barHeightBackground + scene.status.border, acquiredExp, requiredExp, 0x7aeb34);
   }
 }
 
@@ -68,11 +71,11 @@ export function hurt(scene, hero, damage){
   
   scene.hurt_sound.play();
   hero.currentHp -= damage;
-  scene.status.drawBar(scene, scene.status.hpBar, scene.status.border, scene.status.border, 0xff0000);
+  scene.status.drawBar(scene, scene.status.hpBar, scene.status.border, scene.status.border, scene.hero.currentHp, scene.hero.maxHp, 0xff0000);
 
   if(hero.currentHp <= 0){
     scene.gameover_sound.play();
-    scene.scene.start("GameOverScene", { score : PlayingScene.score });
+    scene.scene.start("GameOverScene");
   }
   
   hero.disableBody(true, false);
