@@ -80,13 +80,6 @@ export default class PlayingScene extends Phaser.Scene {
     this.scoreLabel.setOrigin(1, 0);
     this.scoreLabel.setScrollFactor(0);
     this.scoreLabel.setDepth(10);
-    /*
-    const graphics = this.add.graphics();
-    graphics.fillStyle(0x28288C);
-    graphics.fillRect(config.width / 2, 0, config.width / 2, 30);
-    graphics.setDepth(10);
-    graphics.setScrollFactor(0);
-    */
 
     // status
     // 맵을 확장해서 쓸 경우를 고려해 플레이어 기준으로 좌표 설정.

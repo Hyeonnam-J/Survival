@@ -44,7 +44,6 @@ export default class Hero extends Phaser.Physics.Arcade.Sprite{
       },
       loop: true,
     });
-
   };
 
   update(cursors){
