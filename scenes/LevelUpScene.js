@@ -1,4 +1,5 @@
 import config from "../config.js";
+import ChooseOptionButton from "../ui/ChooseOptionButton.js";
 import SelectButton from "../ui/SelectButton.js";
 
 export default class LevelUpScene extends Phaser.Scene {
@@ -6,7 +7,12 @@ export default class LevelUpScene extends Phaser.Scene {
       super("LevelUpScene");
 
       this.border = config.height / 10;
-      this.optionButtonMargin = 100;
+      this.sceneWidth = config.width - 2 * this.border;
+      this.sceneHeight = config.height - 2 * this.border;
+
+      this.optionButtonMargin = config.height / 30;
+      this.optionButtonWidth = this.sceneWidth - 2 * this.optionButtonMargin;
+      this.optionButtonHeight = this.sceneHeight / 5;
   }
 
   init(data) {
@@ -23,20 +29,20 @@ export default class LevelUpScene extends Phaser.Scene {
   drawScene(){
     const bg = this.add.graphics();
     bg.fillStyle(0xffffff);
-    bg.fillRect(this.border, this.border, config.width - 2 * this.border, config.height - 2 * this.border);
+    bg.fillRect(this.border, this.border, this.sceneWidth, this.sceneHeight);
     bg.setScrollFactor(0); 
   }
 
   drawOptionButton(){
     for(let i = 0; i < this.randomAttacks.length; i++){
-      new SelectButton(
+      new ChooseOptionButton(
         this,
         this.randomAttacks[i].descriptions[this.randomAttacks[i].level+1],
-        this.resumeGame.bind(this),
-        config.width / 2, 
-        config.height / 4 + this.optionButtonMargin * i,
-        config.width,
-        100,
+        () => this.chooseOption(),
+        config.width / 2,
+        this.border + this.optionButtonMargin + i * (this.optionButtonHeight + 2 * this.optionButtonMargin),
+        this.optionButtonWidth,
+        this.optionButtonHeight,
         /*
         '#8aacc8',
         '#000',
@@ -95,5 +101,9 @@ export default class LevelUpScene extends Phaser.Scene {
 
     this.scene.stop(this.scene.key);
     this.scene.resume(this.playingScene.scene.key);
+  }
+
+  chooseOption(){
+    console.log('chooseOption');
   }
 }

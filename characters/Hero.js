@@ -12,7 +12,7 @@ export default class Hero extends Phaser.Physics.Arcade.Sprite{
   static expForNextLevel =
     {
       1: 0,
-      2: 3,
+      2: 2,
       3: 9,
       4: 15
     }

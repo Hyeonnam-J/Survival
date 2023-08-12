@@ -83,7 +83,12 @@ export default class PlayingScene extends Phaser.Scene {
     this.hero.update(this.cursors);
 
     if (this.escKey.isDown) {
-      this.escKey.isDown = false; //게임을 일시중지하고 다시 돌아올 때까지 esc 입력이 유지된 상태로 처리될 수 있다.
+      // 게임을 일시중지하고 다시 돌아올 때까지 esc 입력이 유지된 상태가 되니까 코드로 false 처리.
+      this.cursors.up.isDown = false;
+      this.cursors.down.isDown = false;
+      this.cursors.left.isDown = false;
+      this.cursors.right.isDown = false;
+      this.escKey.isDown = false; 
       this.scene.pause();
       this.scene.launch('StatusScene', { playingScene: this, hero: this.hero });
     }
