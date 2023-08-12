@@ -44,9 +44,6 @@ export default class Status extends Phaser.GameObjects.Container {
 
     /* ************************************************* */
     // 레벨 표시를 위한 설정
-    //this.levelWidth = config.width / 10;  // 레벨 표시의 가로 크기 설정
-    //this.levelHeight = config.height / 50;  // 레벨 표시의 세로 크기 설정
-
     this.levelX_padding = config.height / 30;
     this.levelY_padding = config.height / 60;
     this.levelX = this.barWidthBackground + this.levelX_padding;
