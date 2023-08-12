@@ -1,3 +1,6 @@
+import Depth from "../utility/Depth.js";
+import Font from "../utility/Font.js";
+
 export default class PlayTime{
   constructor(scene) {
     this.scene = scene;
@@ -5,9 +8,9 @@ export default class PlayTime{
     this.lastOccurrenceSeconds = 0;
     this.label 
       = this.scene
-        .add.bitmapText(0, 0, 'font', '00 : 00', 50)  // 좌표는 플레잉 씬의 업데이트에서 플레이어 기준으로 조정
+        .add.bitmapText(0, 0, 'font', '00 : 00', Font.size.statusTitle)  // 좌표는 플레잉 씬의 업데이트에서 플레이어 기준으로 조정
         .setOrigin(1, 0);
-    this.label.setDepth(10);
+    this.label.setDepth(Depth.playTime);
 
     // 매 초마다 타이머를 업데이트하기 위한 반복 이벤트를 생성
     this.scene.time.addEvent({

@@ -1,3 +1,4 @@
+import Depth from "../utility/Depth.js";
 import { ITEM_TYPE } from "../utility/ItemType.js";
 
 export default class Jewel extends Phaser.GameObjects.Sprite {
@@ -9,7 +10,7 @@ export default class Jewel extends Phaser.GameObjects.Sprite {
     this.jewelNo = randomFrameIndex;
     
     scene.add.existing(this);
-    this.setDepth(-50);
+    this.setDepth(Depth.jewel);
 
     scene.physics.world.enableBody(this);
     scene.itemGroup.add(this);

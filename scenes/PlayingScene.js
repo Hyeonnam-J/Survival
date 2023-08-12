@@ -6,6 +6,8 @@ import { getRandomPosition } from '../utility/Math.js';
 import { hit, hurt, gain } from '../utility/Collision.js';
 import Fire from '../attacks/Fire.js';
 import PlayTime from '../ui/PlayTime.js';
+import { allKeysInputFalse } from '../utility/Input.js';
+import Depth from '../utility/Depth.js';
 
 export default class PlayingScene extends Phaser.Scene {
 
@@ -33,7 +35,7 @@ export default class PlayingScene extends Phaser.Scene {
     //배경
     this.playingSceneBackground = this.add.tileSprite(0, 0, config.width, config.height, "playingSceneBackground_img");
     this.playingSceneBackground.setOrigin(0, 0);
-    this.playingSceneBackground.setDepth(-99);
+    this.playingSceneBackground.setDepth(Depth.playingSceneBackground);
     /*
     this.background.setScale(
       this.sys.canvas.width / this.background.width,
@@ -72,7 +74,7 @@ export default class PlayingScene extends Phaser.Scene {
     // status
     // 맵을 확장해서 쓸 경우를 고려해 플레이어 기준으로 좌표 설정.
     this.status = new Status(this, this.hero);
-    this.status.setDepth(10);
+    this.status.setDepth(Depth.status);
 
     // PlayTime
     this.playTime = new PlayTime(this);
@@ -84,14 +86,10 @@ export default class PlayingScene extends Phaser.Scene {
 
     if (this.escKey.isDown) {
       this.scene.pause();
-      this.scene.launch('StatusScene', { playingScene: this, hero: this.hero });
+      this.scene.launch('SettingScene', { playingScene: this, hero: this.hero });
 
       // 게임을 일시중지하고 다시 돌아올 때까지 esc 입력이 유지된 상태가 되니까 코드로 false 처리.
-      this.cursors.up.isDown = false;
-      this.cursors.down.isDown = false;
-      this.cursors.left.isDown = false;
-      this.cursors.right.isDown = false;
-      this.escKey.isDown = false; 
+      allKeysInputFalse(this);
     }
 
     // 배경이 주인공 따라오게

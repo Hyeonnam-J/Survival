@@ -1,5 +1,7 @@
 import config from "../config.js";
 import SelectButton from "../ui/SelectButton.js";
+import Color from "../utility/Color.js";
+import Font from "../utility/Font.js";
 
 export default class GameOverScene extends Phaser.Scene {
   constructor() {
@@ -13,11 +15,11 @@ export default class GameOverScene extends Phaser.Scene {
 
   create() {
     const bg = this.add.graphics();
-    bg.fillStyle(0x5c6bc0);
+    bg.fillStyle(Color.gameoverSceneBackground);
     bg.fillRect(0, 0, config.width, config.height);
     bg.setScrollFactor(0);
 
-    this.add.bitmapText(config.width / 2, config.height / 2 - 100, "font", 'Game Over', 40).setOrigin(0.5);
+    this.add.bitmapText(config.width / 2, config.height / 2 - 100, "font", 'Game Over', Font.size.title).setOrigin(0.5);
 
     new SelectButton(
       this,

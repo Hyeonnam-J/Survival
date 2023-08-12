@@ -5,6 +5,7 @@ import MiddleAttack from '../attacks/MiddleAttack.js';
 import LastAttack from '../attacks/LastAttack.js';
 import Battleship from "../characters/Battleship.js";
 import Hero from '../characters/Hero.js';
+import { allKeysInputFalse } from './Input.js';
 
 function pickAttacksArr(){
   const ATTACKS_ARR = [FireBall, FireRing, MiddleAttack, LastAttack];
@@ -41,11 +42,7 @@ export function expUp(scene){
     // data의 파라미터 타입이 object고, 자바스크립트는 object를 중괄호를 쳐서 표현.
     scene.scene.launch('LevelUpScene', { playingScene: scene, randomAttacks: randomAttacks });
 
-    scene.cursors.up.isDown = false; 
-    scene.cursors.down.isDown = false; 
-    scene.cursors.left.isDown = false; 
-    scene.cursors.right.isDown = false; 
-    scene.escKey.isDown = false;
+    allKeysInputFalse(scene);
   }
 
   const requiredExp = Hero.expForNextLevel[Hero.level+1] - Hero.expForNextLevel[Hero.level];

@@ -1,10 +1,11 @@
 import config from "../config.js";
 import SelectButton from "../ui/SelectButton.js";
+import Color from "../utility/Color.js";
 import PlayingScene from "./PlayingScene.js";
 
-export default class StatusScene extends Phaser.Scene {
+export default class SettingScene extends Phaser.Scene {
   constructor() {
-      super("StatusScene");
+      super("SettingScene");
 
       this.widthBorder = config.width / 5;
       this.heightBorder = config.height / 10;
@@ -19,7 +20,7 @@ export default class StatusScene extends Phaser.Scene {
     this.escKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
     const bg = this.add.graphics();
-    bg.fillStyle(0xbbdefb);
+    bg.fillStyle(Color.statusSceneBackground);
     bg.fillRect(
       this.widthBorder, 
       this.heightBorder, 

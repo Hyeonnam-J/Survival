@@ -1,0 +1,14 @@
+export default class Color{
+  static gameoverSceneBackground = 0x5c6bc0;
+  static levelupSceneBackground = 0xffffff;
+  static statusSceneBackground = 0xbbdefb;
+
+  static statusBarBackground = 0x000000;
+  static hpBar = 0xff0000;
+  static mpBar = 0x0000ff;
+  static expBar = 0x7aeb34;
+
+  static selectButtonBackground = '#8aacc8';
+  static selectButtonPointerOver = '#000';
+  static selectButtonPointerOut = '#fff';
+}

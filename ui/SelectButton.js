@@ -1,4 +1,6 @@
 import config from '../config.js';
+import Color from '../utility/Color.js';
+import Font from '../utility/Font.js';
 
 export default class SelectButton extends Phaser.GameObjects.Container {
   constructor(
@@ -9,10 +11,10 @@ export default class SelectButton extends Phaser.GameObjects.Container {
     y = config.height / 2 + config.height / 4,
     width = config.width / 4, 
     height = config.height / 12,
-    backgroundColor = '#8aacc8', 
-    pointeroverColor = '#000',
-    pointeroutColor = '#fff',
-    fontSize = '24px'
+    backgroundColor = Color.selectButtonBackground, 
+    pointeroverColor = Color.selectButtonPointerOver, 
+    pointeroutColor = Color.selectButtonPointerOut, 
+    fontSize = Font.size.selectButton
     ) {
         super(scene, x, y);
 

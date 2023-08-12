@@ -1,5 +1,8 @@
 import Hero from '../characters/Hero.js';
 import config from '../config.js';
+import Depth from '../utility/Depth.js';
+import Color from '../utility/Color.js';
+import Font from '../utility/Font.js';
 
 export default class Status extends Phaser.GameObjects.Container {
   constructor(scene, hero){
@@ -54,13 +57,13 @@ export default class Status extends Phaser.GameObjects.Container {
     /* ************************************************* */
 
     // add를 통해 객체를 컨테이너에 종속. 컨테이너의 위치나 회전에 함께 영향받음.
-    this.hpBarBackground = this.drawBarBackground(scene, this.hpBarBackgroundX, this.hpBarBackgroundY, 0x000000);
-    this.hpBar = this.drawBar(scene, null, this.hpBarX, this.hpBarY, this.hero.currentHp, this.hero.maxHp, 0xff0000);
+    this.hpBarBackground = this.drawBarBackground(scene, this.hpBarBackgroundX, this.hpBarBackgroundY, Color.statusBarBackground);
+    this.hpBar = this.drawBar(scene, null, this.hpBarX, this.hpBarY, this.hero.currentHp, this.hero.maxHp, Color.hpBar);
     this.add(this.hpBarBackground);
     this.add(this.hpBar);
     
-    this.mpBarBackground = this.drawBarBackground(scene, this.mpBarBackgroundX, this.mpBarBackgroundY, 0x000000);
-    this.mpBar = this.drawBar(scene, null, this.mpBarX, this.mpBarY, this.hero.currentMp, this.hero.maxMp, 0x0000ff);
+    this.mpBarBackground = this.drawBarBackground(scene, this.mpBarBackgroundX, this.mpBarBackgroundY, Color.statusBarBackground);
+    this.mpBar = this.drawBar(scene, null, this.mpBarX, this.mpBarY, this.hero.currentMp, this.hero.maxMp, Color.mpBar);
     this.add(this.mpBarBackground);
     this.add(this.mpBar);
 
@@ -72,8 +75,8 @@ export default class Status extends Phaser.GameObjects.Container {
      */
     this.requiredExp = Hero.expForNextLevel[Hero.level+1] - Hero.expForNextLevel[Hero.level];
     this.acquiredExp = Hero.exp - Hero.expForNextLevel[Hero.level]
-    this.expBarBackground = this.drawBarBackground(scene, this.expBarBackgroundX, this.expBarBackgroundY, 0x000000);
-    this.expBar = this.drawBar(scene, null, this.expBarX, this.expBarY, this.acquiredExp, this.requiredExp, 0x7aeb34);
+    this.expBarBackground = this.drawBarBackground(scene, this.expBarBackgroundX, this.expBarBackgroundY, Color.statusBarBackground);
+    this.expBar = this.drawBar(scene, null, this.expBarX, this.expBarY, this.acquiredExp, this.requiredExp, Color.expBar);
     this.add(this.expBarBackground);
     this.add(this.expBar);
 
@@ -87,10 +90,10 @@ export default class Status extends Phaser.GameObjects.Container {
     const formattedLevel = String(level).padStart(2, '0');
     
     if (!this.levelText) {
-      this.levelText = new Phaser.GameObjects.BitmapText(scene, x, y, 'font', `LV : ${formattedLevel}`, 50);
+      this.levelText = new Phaser.GameObjects.BitmapText(scene, x, y, 'font', `LV : ${formattedLevel}`, Font.size.statusTitle);
       this.levelText.setOrigin(0, 0);
       this.add(this.levelText);
-      this.setDepth(10);
+      this.setDepth(Depth.status);
     } else {
       this.levelText.setText(`LV : ${formattedLevel}`);
     }
