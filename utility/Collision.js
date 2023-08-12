@@ -35,10 +35,6 @@ export function hit(scene, attack, enemy, damage, exp){
     enemy.destroy();
 
     levelup(scene);
-
-    const requiredExp = Hero.expForNextLevel[Hero.level+1] - Hero.expForNextLevel[Hero.level];
-    const acquiredExp = Hero.exp - Hero.expForNextLevel[Hero.level]
-    scene.status.drawBar(scene, scene.status.expBar, scene.status.border, 2 * scene.status.barHeightBackground + scene.status.border, acquiredExp, requiredExp, 0x7aeb34);
   }
 }
 
@@ -71,7 +67,7 @@ export function hurt(scene, hero, damage){
   
   scene.hurt_sound.play();
   hero.currentHp -= damage;
-  scene.status.drawBar(scene, scene.status.hpBar, scene.status.border, scene.status.border, scene.hero.currentHp, scene.hero.maxHp, 0xff0000);
+  scene.status.drawBar(scene, scene.status.hpBar, scene.status.hpBarX, scene.status.hpBarY, scene.hero.currentHp, scene.hero.maxHp, 0xff0000);
 
   if(hero.currentHp <= 0){
     scene.gameover_sound.play();

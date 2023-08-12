@@ -94,7 +94,7 @@ export default class PlayingScene extends Phaser.Scene {
     this.background.tilePositionX = this.hero.x - config.width / 2;
     this.background.tilePositionY = this.hero.y - config.height / 2;
 
-    // 상태바 배경 좌상단 고정
+    // 상태바 배경 고정
     this.status.setPosition(
       this.hero.x - config.width / 2 + config.width / 200,
       this.hero.y - config.height / 2 + config.height / 200
@@ -102,9 +102,9 @@ export default class PlayingScene extends Phaser.Scene {
 
     // playTime 배경 상단 고정
     this.playTime.setPosition(
-      this.hero.x,
-      this.hero.y - config.height / 2 + config.height / 20
-    )
+      this.hero.x + config.width / 2 - this.status.levelX_padding, 
+      this.hero.y - config.height / 2 + this.status.levelY_padding
+    );
 
     // 가장 가까운 적 찾기
     this.selectClosest = this.getClosestEnemyToPlayer();

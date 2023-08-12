@@ -29,9 +29,10 @@ function pickAttacksArr(){
 }
 
 export function levelup(scene){
-  
   if(Hero.expForNextLevel[Hero.level+1] <= Hero.exp){
     Hero.level++;
+    scene.status.drawLevel(scene, scene.status.levelX, scene.status.levelY, Hero.level);
+
     scene.levelup_sound.play();
     scene.scene.pause(scene.scene.key);
     let randomAttacks = pickAttacksArr();
@@ -39,4 +40,8 @@ export function levelup(scene){
     // data의 파라미터 타입이 object고, 자바스크립트는 object를 중괄호를 쳐서 표현.
     scene.scene.launch('LevelUpScene', { playingScene: scene, randomAttacks: randomAttacks });
   }
+
+  const requiredExp = Hero.expForNextLevel[Hero.level+1] - Hero.expForNextLevel[Hero.level];
+  const acquiredExp = Hero.exp - Hero.expForNextLevel[Hero.level]
+  scene.status.drawBar(scene, scene.status.expBar, scene.status.expBarX, scene.status.expBarY, acquiredExp, requiredExp, 0x7aeb34);
 }
