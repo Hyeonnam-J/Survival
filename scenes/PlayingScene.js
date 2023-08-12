@@ -5,6 +5,7 @@ import Status from '../ui/Status.js';
 import { getRandomPosition } from '../utility/Math.js';
 import { hit, hurt, gain } from '../utility/Collision.js';
 import Fire from '../attacks/Fire.js';
+import PlayTime from '../ui/PlayTime.js';
 
 export default class PlayingScene extends Phaser.Scene {
 
@@ -29,6 +30,9 @@ export default class PlayingScene extends Phaser.Scene {
     this.fire_sound = this.sound.add('fire_audio');
     this.gain_sound = this.sound.add('gain_audio');
     this.gameover_sound = this.sound.add('gameover_audio');
+
+    // PlayTime
+    new PlayTime(this, config.width / 2, config.height / 20);
 
     //배경
     this.background = this.add.tileSprite(0, 0, config.width, config.height, "background_img");
