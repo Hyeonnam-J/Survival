@@ -14,16 +14,22 @@ export default class ChooseOptionButton extends Phaser.GameObjects.Container {
     name,
     level,
     description,
-    backgroundColor = Color.chooseOptionButtonBackground,
-    pointeroverColor = Color.chooseOptionButtonPointerOver,
-    pointeroutColor = Color.chooseOptionButtonPointerOut,
     fontSize_name = Font.size.chooseOptionButton_name,
     fontSize_level = Font.size.chooseOptionButton_level,
     fontSize_description = Font.size.chooseOptionButton_description,
+    backgroundColor = Color.chooseOptionButtonBackground,
+    pointeroverBackgroundColor = Color.pointeroverBackgroundColor,
+    pointeroutBackgroundColor = Color.pointeroutBackgroundColor,
+    fontColor = Color.chooseOptionButtonFont,
+    pointeroverFontColor = Color.pointeroverFontColor,
+    pointeroutFontColor = Color.pointeroutFontColor,
   ) {
       super(scene, x, y);
 
+      this.isSelected = false;
       this.level = level === 0 ? '신규 기술' : 'Lv : '+level;
+      this.name = name;
+      this.backgroundColor = backgroundColor;
 
       this.background = scene.add.graphics();
       this.background.fillStyle(Phaser.Display.Color.HexStringToColor(backgroundColor).color);
@@ -43,52 +49,63 @@ export default class ChooseOptionButton extends Phaser.GameObjects.Container {
       const secondSectionBottomHeight = height * (8 / 10);
 
       // 첫 번째 구역 - 이미지 *
-      //const image = scene.add.image(-width / 2 + firstSectionWidth / 2, -height / 2 + firstSectionTopHeight / 2, img);
-      //image.setDisplaySize(firstSectionWidth, firstSectionTopHeight);
-      //this.add(image);
       img.setPosition(-width / 2 + firstSectionWidth / 2, -height / 2 + firstSectionTopHeight / 2);
-      img.setDisplaySize(firstSectionWidth * 0.4, firstSectionTopHeight * 0.6);
+      img.setDisplaySize(firstSectionWidth * 0.3, firstSectionTopHeight * 0.6);
       this.add(img);
 
       // 첫 번째 구역 - 텍스트 (아래쪽)
-      const textOne = new Phaser.GameObjects.Text(scene, -width / 2 + firstSectionWidth / 2, -height / 2 + firstSectionTopHeight + firstSectionBottomHeight / 2, name, { fill: pointeroutColor, fontSize_name });
+      const textOne = new Phaser.GameObjects.Text(scene, -width / 2 + firstSectionWidth / 2, -height / 2 + firstSectionTopHeight + firstSectionBottomHeight / 2, name, { fill: fontColor, fontSize: fontSize_name });
       textOne.setOrigin(0.5);
       this.add(textOne);
 
       // 두 번째 구역 - 상단 텍스트
-      //const textTwoTop = new Phaser.GameObjects.Text(scene, -width / 2 + firstSectionWidth + secondSectionWidth / 2, -height / 2 + secondSectionTopHeight / 2, this.level, { fill: pointeroutColor, fontSize_level });
       const secondSectionPadding = height / 10;
-      const textTwoTop = new Phaser.GameObjects.Text(scene, width / 2 - secondSectionPadding, -height / 2 + secondSectionPadding, this.level, { fill: pointeroutColor, fontSize_level });
+      const textTwoTop = new Phaser.GameObjects.Text(scene, width / 2 - secondSectionPadding, -height / 2 + secondSectionPadding, this.level, { fill: fontColor, fontSize: fontSize_level });
       textTwoTop.setOrigin(1, 0);
       this.add(textTwoTop);
 
       // 두 번째 구역 - 하단 텍스트
-      const textTwoBottom = new Phaser.GameObjects.Text(scene, -width / 2 + firstSectionWidth + secondSectionWidth / 2, -height / 2 + secondSectionTopHeight + secondSectionBottomHeight / 2, description, { fill: pointeroutColor, fontSize_description });
+      const textTwoBottom = new Phaser.GameObjects.Text(scene, -width / 2 + firstSectionWidth + secondSectionWidth / 2, -height / 2 + secondSectionTopHeight + secondSectionBottomHeight / 2, description, { fill: fontColor, fontSize: fontSize_description });
       textTwoBottom.setOrigin(0.5);
       this.add(textTwoBottom);
 
-      /*
-      // JavaScript ES6 객체 리터럴 속성 이름 축약
-      // 변수 이름과 속성 이름이 동일할 경우 이렇게 축약 가능
-      this.label = new Phaser.GameObjects.Text(scene, 0, 0, label, { backgroundColor, fontSize });
-      this.label.setOrigin(0.5);
-      this.label.setPadding(10);
-      this.add(this.label);
-      */
-
       this.setSize(width, height); 
       this.setInteractive({ useHandCursor: true })
-          .on('pointerdown', callback)
+          .on('pointerdown', () =>{
+            callback();
+            this.selectButton();
+          })
           .on('pointerover', () => {
-            this.background.clear();  // 기존 그래픽을 지웁니다.
-            this.background.fillStyle(Phaser.Display.Color.HexStringToColor(pointeroverColor).color);  // 새로운 색상을 설정합니다.
-            this.background.fillRect(-width / 2, -height / 2, width, height);  // 배경을 다시 그립니다.
-        })
-        .on('pointerout', () => {
-            this.background.clear();  // 기존 그래픽을 지웁니다.
-            this.background.fillStyle(Phaser.Display.Color.HexStringToColor(backgroundColor).color);  // 원래 색상으로 설정합니다.
-            this.background.fillRect(-width / 2, -height / 2, width, height);
-        })
+            if(! this.isSelected){
+              this.background.clear();  
+              this.background.fillStyle(Phaser.Display.Color.HexStringToColor(pointeroverBackgroundColor).color);  // 새로운 색상을 설정합니다.
+              this.background.fillRect(-width / 2, -height / 2, width, height);  // 배경을 다시 그립니다.
+            }
+          })
+          .on('pointerout', () => {
+            if(! this.isSelected){
+              this.background.clear();  
+              this.background.fillStyle(Phaser.Display.Color.HexStringToColor(pointeroutBackgroundColor).color);  // 원래 색상으로 설정합니다.
+              this.background.fillRect(-width / 2, -height / 2, width, height);
+            }
+          })
       scene.add.existing(this);
+  }
+
+  selectButton() {
+    if (!this.isSelected) {
+        this.isSelected = true;
+        this.background.lineStyle(3, Color.selectedButtonColor);
+        this.background.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
+    }
+  }
+
+  deselectButton() {
+    if (this.isSelected) {
+        this.isSelected = false;
+        this.background.clear(); 
+        this.background.fillStyle(Phaser.Display.Color.HexStringToColor(this.backgroundColor).color);
+        this.background.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+    }
   }
 }

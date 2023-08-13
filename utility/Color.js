@@ -12,7 +12,12 @@ export default class Color{
   static selectButtonPointerOver = '#000';
   static selectButtonPointerOut = '#fff';
 
-  static chooseOptionButtonBackground = '#fcd703';
-  static chooseOptionButtonPointerOver = '#0493e0';
-  static chooseOptionButtonPointerOut = '#fff';
+  static chooseOptionButtonBackground = '#0493e0';
+  static pointeroverBackgroundColor = '#eb7465';
+  static pointeroutBackgroundColor = '#0493e0';
+  static selectedButtonColor = 0xFF0000;
+  
+  static chooseOptionButtonFont = '#fff';
+  static pointeroverFontColor = '#fff';
+  static pointeroutFontColor = '#fff';
 }

@@ -4,8 +4,8 @@ export default class Font {
       title: 50,
       statusTitle: 50,
       selectButton: 24,
-      chooseOptionButton_name: 20,
-      chooseOptionButton_level: 24,
-      chooseOptionButton_description: 16
+      chooseOptionButton_name: 16,
+      chooseOptionButton_level: 20,
+      chooseOptionButton_description: 18
     }
 }

@@ -1,7 +1,6 @@
 import config from "../config.js";
 import ChooseOptionButton from "../ui/ChooseOptionButton.js";
 import SelectButton from "../ui/SelectButton.js";
-import Color from "../utility/Color.js";
 
 export default class LevelUpScene extends Phaser.Scene {
   constructor() {
@@ -14,6 +13,8 @@ export default class LevelUpScene extends Phaser.Scene {
       this.optionButtonMargin = config.height / 30;
       this.optionButtonWidth = this.sceneWidth - 2 * this.optionButtonMargin;
       this.optionButtonHeight = this.sceneHeight / 5;
+
+      this.finallySelectedAttackClass;
   }
 
   init(data) {
@@ -22,6 +23,10 @@ export default class LevelUpScene extends Phaser.Scene {
   }
 
   create() {
+    // 만든 ChooseOptionButton을 ChooseOptionButton 클래스와 함께 공유해야 해서,
+    // create()는 씬이 재시작 될 때마다 다시 코드가 실행되므로 배열은 여기서 초기화.
+    this.optionButtons = [];
+
     this.drawScene();
     this.drawOptionButton();
     this.drawSelectButton();
@@ -41,24 +46,20 @@ export default class LevelUpScene extends Phaser.Scene {
 
   drawOptionButton(){
     for(let i = 0; i < this.randomAttacks.length; i++){
-      new ChooseOptionButton(
-        this,
-        () => this.chooseOption(),
-        config.width / 2,
-        this.border + this.optionButtonMargin + (i * (this.optionButtonHeight + this.optionButtonMargin)) + this.optionButtonHeight / 2,
-        this.optionButtonWidth,
-        this.optionButtonHeight,
-        this.randomAttacks[i].setImageFromScene(this.playingScene),
-        this.randomAttacks[i].name,
-        this.randomAttacks[i].level,
-        this.randomAttacks[i].descriptions[this.randomAttacks[i].level+1],
-        /*
-        '#8aacc8',
-        '#000',
-        '#fff'
-        '24px'
-        */
-      );
+      const optionButton = 
+        new ChooseOptionButton(
+          this,
+          () => this.chooseOption(this.randomAttacks[i]),
+          config.width / 2,
+          this.border + this.optionButtonMargin + (i * (this.optionButtonHeight + this.optionButtonMargin)) + this.optionButtonHeight / 2,
+          this.optionButtonWidth,
+          this.optionButtonHeight,
+          this.randomAttacks[i].setImageFromScene(this.playingScene),
+          this.randomAttacks[i].name,
+          this.randomAttacks[i].level,
+          this.randomAttacks[i].descriptions[this.randomAttacks[i].level+1],
+        );
+      this.optionButtons.push(optionButton);
     }
   }
 
@@ -81,16 +82,23 @@ export default class LevelUpScene extends Phaser.Scene {
   }
 
   resumeGame(){
-
     // 이곳에서 console.log(this)를 찍었을 때 먹통이 되는 이유는,
     // this가 복잡한 구조일 때 발생하는 성능 이슈일 수 있다.
     // 반면 console.log(this.playingScene)은 범위가 좁혀진 관계로 문제가 없는 경우.
-
+    this.finallySelectedAttackClass.level++;
     this.scene.stop(this.scene.key);
     this.scene.resume(this.playingScene.scene.key);
   }
 
-  chooseOption(){
-    console.log('chooseOption');
+  chooseOption(finallySelectedAttackClass){
+    if (this.selectedAttackButton) {
+      this.selectedAttackButton.deselectButton();
+    }
+    this.finallySelectedAttackClass = finallySelectedAttackClass;
+
+    this.selectedAttackButton = this.optionButtons.find(btn => btn.name === finallySelectedAttackClass.name);
+    if (this.selectedAttackButton) {
+        this.selectedAttackButton.selectButton();
+    }
   }
 }

@@ -18,8 +18,8 @@ function pickAttacksArr(){
   // 그런데, 인스턴스가 아니라 지금 클래스 그 자체가 들어가 있어서,
   // 후에 static 접근 시 메서드를 이용할 필요 없다.
   let tempAttackClasses = [...availableAttacks];
-
-  for (let i = 0; i < 3; i++) {
+  let optionCount = tempAttackClasses.length >= 3 ? 3 : tempAttackClasses.length;
+  for (let i = 0; i < optionCount; i++) {
     //Math.random()에 배열의 길이를 곱하면 <0부터 배열의 길이 - 1> 중 하나 생성 후 floor로 내림
     let randomIndex = Math.floor(Math.random() * tempAttackClasses.length);
     randomAttacks.push(tempAttackClasses[randomIndex]);
