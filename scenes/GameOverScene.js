@@ -25,7 +25,7 @@ export default class GameOverScene extends Phaser.Scene {
     bg.fillRect(0, 0, config.width, config.height);
     bg.setScrollFactor(0);
 
-    this.add.bitmapText(config.width / 2, config.height / 2 - 100, "font", 'Game Over', Font.size.title).setOrigin(0.5);
+    this.add.bitmapText(config.width / 2, config.height / 4, "font", 'Game Over', Font.size.title).setOrigin(0.5);
 
     new SelectButton(
       this,
