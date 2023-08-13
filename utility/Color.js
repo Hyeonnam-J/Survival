@@ -1,5 +1,5 @@
 export default class Color{
-  static gameoverSceneBackground = 0x5c6bc0;
+  static gameoverSceneBackground = 0x000000;
   static levelupSceneBackground = 0xffffff;
   static statusSceneBackground = 0xbbdefb;
 

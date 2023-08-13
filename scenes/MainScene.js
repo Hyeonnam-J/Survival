@@ -1,6 +1,7 @@
 import config from "../config.js";
 import SelectButton from "../ui/SelectButton.js";
 import Font from "../utility/Font.js";
+import { setScaleCoverBackground } from "../utility/Processing.js";
 
 export default class MainScene extends Phaser.Scene {
   constructor() {
@@ -8,12 +9,9 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
-
+    
     this.mainSceneBackground = this.add.image(config.width / 2, config.height / 2, "mainSceneBackground_img");
-    const scaleX = config.width / this.mainSceneBackground.width;
-    const scaleY = config.height / this.mainSceneBackground.height;
-    const scale = Math.max(scaleX, scaleY);
-    this.mainSceneBackground.setScale(scale).setScrollFactor(0);
+    setScaleCoverBackground(this.mainSceneBackground);
     /*
     const bg = this.add.graphics();
     bg.fillStyle(0xbbdefb);

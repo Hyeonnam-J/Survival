@@ -28,10 +28,15 @@ export default class LevelUpScene extends Phaser.Scene {
   }
 
   drawScene(){
+    const bgImage = this.add.image(config.width / 2, config.height / 2, 'levelupSceneBackground_img');
+    bgImage.setDisplaySize(this.sceneWidth, this.sceneHeight);
+    bgImage.setScrollFactor(0);
+    /*
     const bg = this.add.graphics();
     bg.fillStyle(Color.levelupSceneBackground);
     bg.fillRect(this.border, this.border, this.sceneWidth, this.sceneHeight);
     bg.setScrollFactor(0); 
+    */
   }
 
   drawOptionButton(){

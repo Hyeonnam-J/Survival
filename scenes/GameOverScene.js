@@ -2,6 +2,7 @@ import config from "../config.js";
 import SelectButton from "../ui/SelectButton.js";
 import Color from "../utility/Color.js";
 import Font from "../utility/Font.js";
+import { setScaleCoverBackground } from "../utility/Processing.js";
 
 export default class GameOverScene extends Phaser.Scene {
   constructor() {
@@ -14,6 +15,11 @@ export default class GameOverScene extends Phaser.Scene {
   }
 
   create() {
+    /*
+    this.gameoverSceneBackground = this.add.image(config.width / 2, config.height / 2, "gameoverSceneBackground_img");
+    setScaleCoverBackground(this.gameoverSceneBackground);
+    */
+    
     const bg = this.add.graphics();
     bg.fillStyle(Color.gameoverSceneBackground);
     bg.fillRect(0, 0, config.width, config.height);

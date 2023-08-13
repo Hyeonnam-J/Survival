@@ -19,6 +19,10 @@ export default class SettingScene extends Phaser.Scene {
   create() {
     this.escKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
 
+    const bgImage = this.add.image(config.width / 2, config.height / 2, 'settingSceneBackground_img');
+    bgImage.setDisplaySize(config.width - 2 * this.widthBorder, config.height - 2 * this.heightBorder);
+    bgImage.setScrollFactor(0);
+    /*
     const bg = this.add.graphics();
     bg.fillStyle(Color.statusSceneBackground);
     bg.fillRect(
@@ -28,7 +32,8 @@ export default class SettingScene extends Phaser.Scene {
       config.height - 2 * this.heightBorder
     );
     bg.setScrollFactor(0); 
-
+    */
+   
     new SelectButton(
       this,
       'back to the game', 
