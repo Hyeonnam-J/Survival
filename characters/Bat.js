@@ -19,7 +19,7 @@ export default class Bat extends Phaser.Physics.Arcade.Sprite{
     };
     
     this.speed = 50;
-    this.hp = 10;
+    this.hp = 20;
     this.exp = 2;
     this.power = 10;
     
