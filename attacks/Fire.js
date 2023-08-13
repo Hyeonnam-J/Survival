@@ -1,6 +1,5 @@
 import { mySetCircle } from "../utility/Collision.js";
 import FireRing from "./FireRing.js";
-import config from '../config.js';
 
 /**
  * FireRing으로부터 생성되는 공격 오브젝트.
@@ -19,12 +18,16 @@ export default class Fire extends Phaser.Physics.Arcade.Image {
 
   static levelUpModifiers = {
     2: {
-        duration: (prev) => prev,
-        power: (prev) => prev
+        duration: (prev) => prev * 1.1,
+        power: (prev) => prev * 1.1
     },
     3: {
-        duration: (prev) => prev, 
-        power: (prev) => prev
+        duration: (prev) => prev * 1.1, 
+        power: (prev) => prev * 1.1
+    },
+    4: {
+      duration: (prev) => prev * 1.1, 
+      power: (prev) => prev * 1.1
     }
   };
 

@@ -9,8 +9,9 @@ export default class FireRing extends Phaser.Physics.Arcade.Image {
     static finalLevel = 4;
     static descriptions = {
         1: '파이어 링 공격을 사용할 수 있다',
-        2: '레벨 2로 업그레이드 시 파이어 링의 속도가 빨라집니다.',
-        3: '레벨 3로 업그레이드 시 파이어 링의 파워가 강해집니다.'
+        2: '레벨 2 달성 시 파이어 링 위력 10% 향상',
+        3: '레벨 3 달성 시 파이어 링 위력 10% 향상',
+        4: '레벨 4 달성 시 파이어 링 위력 10% 향상'
     };
 
     static levelOneAbility = {
@@ -22,16 +23,22 @@ export default class FireRing extends Phaser.Physics.Arcade.Image {
 
     static levelUpModifiers = {
         2: {
-            speed: (prev) => prev,
-            duration: (prev) => prev,
-            power: (prev) => prev,
-            cooldown: (prev) => prev
+            speed: (prev) => prev * 1.1,
+            duration: (prev) => prev * 1.1,
+            power: (prev) => prev * 1.1,
+            cooldown: (prev) => prev * 1.1
         },
         3: {
-            speed: (prev) => prev,
-            duration: (prev) => prev, 
-            power: (prev) => prev,
-            cooldown: (prev) => prev
+            speed: (prev) => prev * 1.1,
+            duration: (prev) => prev * 1.1, 
+            power: (prev) => prev * 1.1,
+            cooldown: (prev) => prev * 1.1
+        },
+        4: {
+            speed: (prev) => prev * 1.1,
+            duration: (prev) => prev * 1.1, 
+            power: (prev) => prev * 1.1,
+            cooldown: (prev) => prev * 1.1
         }
     };
 

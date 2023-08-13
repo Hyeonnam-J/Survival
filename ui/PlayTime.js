@@ -1,5 +1,6 @@
 import Depth from "../utility/Depth.js";
 import Font from "../utility/Font.js";
+import Battleship from '../characters/Battleship.js';
 
 export default class PlayTime{
   constructor(scene) {
@@ -33,13 +34,8 @@ export default class PlayTime{
   }
 
   timeEvents(){
-    if(this.elapsedSeconds > 3 && this.lastOccurrenceSeconds <= 3){
-      //console.log('3');
-      this.lastOccurrenceSeconds = this.elapsedSeconds;
-    }
-
-    if(this.elapsedSeconds > 7 && this.lastOccurrenceSeconds <= 7){
-      //console.log('7');
+    if(this.elapsedSeconds > 10 && this.lastOccurrenceSeconds <= 10){
+      this.scene.addEnemy(Battleship, "battleship_img", null, Battleship.generationDelay);
       this.lastOccurrenceSeconds = this.elapsedSeconds;
     }
   }

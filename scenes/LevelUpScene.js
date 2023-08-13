@@ -26,6 +26,7 @@ export default class LevelUpScene extends Phaser.Scene {
     // 만든 ChooseOptionButton을 ChooseOptionButton 클래스와 함께 공유해야 해서,
     // create()는 씬이 재시작 될 때마다 다시 코드가 실행되므로 배열은 여기서 초기화.
     this.optionButtons = [];
+    this.finallySelectedAttackClass = null; //마찬가지.
 
     this.drawScene();
     this.drawOptionButton();
@@ -82,6 +83,10 @@ export default class LevelUpScene extends Phaser.Scene {
   }
 
   resumeGame(){
+    if(this.finallySelectedAttackClass == null){
+      return ;
+    }
+
     // 이곳에서 console.log(this)를 찍었을 때 먹통이 되는 이유는,
     // this가 복잡한 구조일 때 발생하는 성능 이슈일 수 있다.
     // 반면 console.log(this.playingScene)은 범위가 좁혀진 관계로 문제가 없는 경우.

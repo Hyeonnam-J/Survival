@@ -12,9 +12,9 @@ export default class Hero extends Phaser.Physics.Arcade.Sprite{
   static expForNextLevel =
     {
       1: 0,
-      2: 2,
+      2: 3,
       3: 9,
-      4: 15
+      4: 17
     }
 
   static jewel_0 = 0;
