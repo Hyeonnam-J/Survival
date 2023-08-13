@@ -1,5 +1,6 @@
 import { mySetCircle } from "../utility/Collision.js";
 import FireRing from "./FireRing.js";
+import config from '../config.js';
 
 /**
  * FireRing으로부터 생성되는 공격 오브젝트.

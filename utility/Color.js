@@ -11,4 +11,8 @@ export default class Color{
   static selectButtonBackground = '#8aacc8';
   static selectButtonPointerOver = '#000';
   static selectButtonPointerOut = '#fff';
+
+  static chooseOptionButtonBackground = '#fcd703';
+  static chooseOptionButtonPointerOver = '#0493e0';
+  static chooseOptionButtonPointerOut = '#fff';
 }

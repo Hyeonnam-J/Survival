@@ -43,12 +43,15 @@ export default class LevelUpScene extends Phaser.Scene {
     for(let i = 0; i < this.randomAttacks.length; i++){
       new ChooseOptionButton(
         this,
-        this.randomAttacks[i].descriptions[this.randomAttacks[i].level+1],
         () => this.chooseOption(),
         config.width / 2,
         this.border + this.optionButtonMargin + (i * (this.optionButtonHeight + this.optionButtonMargin)) + this.optionButtonHeight / 2,
         this.optionButtonWidth,
         this.optionButtonHeight,
+        this.randomAttacks[i].setImageFromScene(this.playingScene),
+        this.randomAttacks[i].name,
+        this.randomAttacks[i].level,
+        this.randomAttacks[i].descriptions[this.randomAttacks[i].level+1],
         /*
         '#8aacc8',
         '#000',

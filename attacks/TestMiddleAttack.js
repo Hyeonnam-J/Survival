@@ -1,21 +1,23 @@
 import { mySetCircle } from "../utility/Collision.js";
+import config from '../config.js';
 
-export default class LastAttack extends Phaser.Physics.Arcade.Image {
+export default class TestMiddleAttack extends Phaser.Physics.Arcade.Image {
 
-    static level = 4;
+    static name = '테스트 Middle';
+    static level = 3;
     static finalLevel = 4;
     static descriptions = {
-        1: 'Last-1',
-        2: 'Last-2',
-        3: 'Last-3',
-        4: 'Last-4'
+        1: 'Middle-1',
+        2: 'Middle-2',
+        3: 'Middle-3',
+        4: 'Middle-4'
     };
 
     static levelOneAbility = {
-        speed: 9999,
-        duration: 9999,
-        power: 9999,
-        cooldown: 9999,
+        speed: 5555,
+        duration: 5555,
+        power: 5555,
+        cooldown: 5555,
     };
 
     static levelUpModifiers = {
@@ -53,6 +55,10 @@ export default class LastAttack extends Phaser.Physics.Arcade.Image {
         }
     
         return ability;
+    }
+
+    static setImageFromScene(scene) {
+        return scene.add.image(config.width / 2, config.height / 2, "fireBall_img");
     }
 
     constructor(scene, hero) {

@@ -1,7 +1,9 @@
 import { mySetCircle } from "../utility/Collision.js";
+import config from '../config.js';
 
 export default class FireBall extends Phaser.Physics.Arcade.Image {
 
+    static name = '파이어 볼';
     static level = 1;
     static finalLevel = 4;
     static descriptions = {
@@ -46,6 +48,10 @@ export default class FireBall extends Phaser.Physics.Arcade.Image {
         }
     
         return ability;
+    }
+
+    static setImageFromScene(scene) {
+        return this.img = scene.add.image(config.width / 2, config.height / 2, "fireBall_img");
     }
 
     constructor(scene, hero) {

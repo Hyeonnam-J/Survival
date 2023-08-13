@@ -1,8 +1,10 @@
 import { mySetCircle } from "../utility/Collision.js";
 import Fire from "./Fire.js";
+import config from '../config.js';
 
 export default class FireRing extends Phaser.Physics.Arcade.Image {
 
+    static name = '파이어 링';
     static level = 0;
     static finalLevel = 4;
     static descriptions = {
@@ -47,6 +49,10 @@ export default class FireRing extends Phaser.Physics.Arcade.Image {
         }
     
         return ability;
+    }
+
+    static setImageFromScene(scene) {
+        return scene.add.image(config.width / 2, config.height / 2, "fireRing_img");
     }
 
     constructor(scene, hero) {

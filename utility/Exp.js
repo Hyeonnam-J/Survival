@@ -1,14 +1,14 @@
 import FireBall from '../attacks/FireBall.js';
 import FireRing from '../attacks/FireRing.js';
 //import Fire from '../attacks/Fire.js';
-import MiddleAttack from '../attacks/MiddleAttack.js';
-import LastAttack from '../attacks/LastAttack.js';
+import TestMiddleAttack from '../attacks/TestMiddleAttack.js';
+import TestLastAttack from '../attacks/TestLastAttack.js';
 import Battleship from "../characters/Battleship.js";
 import Hero from '../characters/Hero.js';
 import { allKeysInputFalse } from './Input.js';
 
 function pickAttacksArr(){
-  const ATTACKS_ARR = [FireBall, FireRing, MiddleAttack, LastAttack];
+  const ATTACKS_ARR = [FireBall, FireRing, TestMiddleAttack, TestLastAttack];
 
   // 최종 레벨의 기술은 제외
   const availableAttacks = ATTACKS_ARR.filter(attackClass => attackClass.finalLevel !== attackClass.level);
