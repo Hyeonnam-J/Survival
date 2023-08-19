@@ -15,7 +15,7 @@ export default class Color{
   static chooseOptionButtonBackground = '#0493e0';
   static pointeroverBackgroundColor = '#eb7465';
   static pointeroutBackgroundColor = '#0493e0';
-  static selectedButtonColor = 0xFF0000;
+  static selectedButtonColor = 0xfcfc05;
   
   static chooseOptionButtonFont = '#fff';
   static pointeroverFontColor = '#fff';
