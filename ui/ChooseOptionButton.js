@@ -72,7 +72,6 @@ export default class ChooseOptionButton extends Phaser.GameObjects.Container {
       this.setSize(width, height); 
       this.setInteractive({ useHandCursor: true })
           .on('pointerdown', () =>{
-            this.selectButton();
             callback();
           })
           .on('pointerover', () => {

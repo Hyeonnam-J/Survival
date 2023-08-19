@@ -35,11 +35,11 @@ export default class Fire extends Phaser.Physics.Arcade.Image {
     let ability = { ...this.levelOneAbility };
 
     for (let i = 2; i <= level; i++) {
-        if (this.levelUpModifiers[i]) {
-            const modifiers = this.levelUpModifiers[i];
-            ability.duration = modifiers.duration(ability.duration);
-            ability.power = modifiers.power(ability.power);
-        }
+      if (this.levelUpModifiers[i]) {
+        const modifiers = this.levelUpModifiers[i];
+        ability.duration = modifiers.duration(ability.duration);
+        ability.power = modifiers.power(ability.power);
+      }
     }
 
     return ability;
