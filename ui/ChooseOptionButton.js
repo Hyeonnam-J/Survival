@@ -72,21 +72,19 @@ export default class ChooseOptionButton extends Phaser.GameObjects.Container {
       this.setSize(width, height); 
       this.setInteractive({ useHandCursor: true })
           .on('pointerdown', () =>{
-            callback();
             this.selectButton();
+            callback();
           })
           .on('pointerover', () => {
-            if(! this.isSelected){
-              this.background.clear();  
-              this.background.fillStyle(Phaser.Display.Color.HexStringToColor(pointeroverBackgroundColor).color);  // 새로운 색상을 설정합니다.
-              this.background.fillRect(-width / 2, -height / 2, width, height);  // 배경을 다시 그립니다.
+            this.drawBackground(pointeroverBackgroundColor);
+            if (this.isSelected) {
+              this.drawSelectedBorder();
             }
           })
           .on('pointerout', () => {
-            if(! this.isSelected){
-              this.background.clear();  
-              this.background.fillStyle(Phaser.Display.Color.HexStringToColor(pointeroutBackgroundColor).color);  // 원래 색상으로 설정합니다.
-              this.background.fillRect(-width / 2, -height / 2, width, height);
+            this.drawBackground(pointeroutBackgroundColor);
+            if (this.isSelected) {
+              this.drawSelectedBorder();
             }
           })
       scene.add.existing(this);
@@ -94,18 +92,26 @@ export default class ChooseOptionButton extends Phaser.GameObjects.Container {
 
   selectButton() {
     if (!this.isSelected) {
-        this.isSelected = true;
-        this.background.lineStyle(3, Color.selectedButtonColor);
-        this.background.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
+      this.isSelected = true;
+      this.drawSelectedBorder();
     }
   }
 
   deselectButton() {
     if (this.isSelected) {
-        this.isSelected = false;
-        this.background.clear(); 
-        this.background.fillStyle(Phaser.Display.Color.HexStringToColor(this.backgroundColor).color);
-        this.background.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
+      this.isSelected = false;
+      this.drawBackground(this.backgroundColor);
     }
+  }
+
+  drawSelectedBorder(){
+    this.background.lineStyle(3, Color.selectedButtonColor);
+    this.background.strokeRect(-this.width / 2, -this.height / 2, this.width, this.height);
+  }
+
+  drawBackground(backgroundColor){
+    this.background.clear(); 
+    this.background.fillStyle(Phaser.Display.Color.HexStringToColor(backgroundColor).color);
+    this.background.fillRect(-this.width / 2, -this.height / 2, this.width, this.height);
   }
 }

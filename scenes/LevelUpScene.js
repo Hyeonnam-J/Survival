@@ -14,7 +14,8 @@ export default class LevelUpScene extends Phaser.Scene {
       this.optionButtonWidth = this.sceneWidth - 2 * this.optionButtonMargin;
       this.optionButtonHeight = this.sceneHeight / 5;
 
-      this.finallySelectedAttackClass;
+      // this.finallySelectedAttackClass;  // 최종적으로 담긴 공격 클래스.
+      // this.selectedOptionIndex = 0;     // 현재 선택된 버튼의 인덱스.
   }
 
   init(data) {
@@ -23,14 +24,28 @@ export default class LevelUpScene extends Phaser.Scene {
   }
 
   create() {
+    // 키보드 입력 세팅.
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    this.enterKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+    this.keysPressed = {
+      up: false,
+      down: false,
+      space: false,
+      enter: false
+    };
+
     // 만든 ChooseOptionButton을 ChooseOptionButton 클래스와 함께 공유해야 해서,
-    // create()는 씬이 재시작 될 때마다 다시 코드가 실행되므로 배열은 여기서 초기화.
+    // create()는 씬이 재시작 될 때마다 다시 코드가 실행되므로 이 변수들은 여기서 초기화.
     this.optionButtons = [];
-    this.finallySelectedAttackClass = null; //마찬가지.
+    this.finallySelectedAttackClass = null; // 최종적으로 선택된 공격 클래스.
+    this.selectedOptionIndex = 0;           // 현재 선택된 버튼 인덱스.
 
     this.drawScene();
     this.drawOptionButton();
     this.drawSelectButton();
+
+    this.chooseOption(this.randomAttacks[this.selectedOptionIndex]);
   }
 
   drawScene(){
@@ -46,22 +61,21 @@ export default class LevelUpScene extends Phaser.Scene {
   }
 
   drawOptionButton(){
-    for(let i = 0; i < this.randomAttacks.length; i++){
-      const optionButton = 
-        new ChooseOptionButton(
+    this.randomAttacks.forEach((attack, index) => {
+      const optionButton = new ChooseOptionButton(
           this,
-          () => this.chooseOption(this.randomAttacks[i]),
+          () => this.chooseOption(attack),
           config.width / 2,
-          this.border + this.optionButtonMargin + (i * (this.optionButtonHeight + this.optionButtonMargin)) + this.optionButtonHeight / 2,
+          this.border + this.optionButtonMargin + (index * (this.optionButtonHeight + this.optionButtonMargin)) + this.optionButtonHeight / 2,
           this.optionButtonWidth,
           this.optionButtonHeight,
-          this.randomAttacks[i].setImageFromScene(this.playingScene),
-          this.randomAttacks[i].name,
-          this.randomAttacks[i].level,
-          this.randomAttacks[i].descriptions[this.randomAttacks[i].level+1],
-        );
+          attack.setImageFromScene(this.playingScene),
+          attack.name,
+          attack.level,
+          attack.descriptions[attack.level + 1],
+      );
       this.optionButtons.push(optionButton);
-    }
+    });
   }
 
   drawSelectButton(){
@@ -83,10 +97,6 @@ export default class LevelUpScene extends Phaser.Scene {
   }
 
   resumeGame(){
-    if(this.finallySelectedAttackClass == null){
-      return ;
-    }
-
     // 이곳에서 console.log(this)를 찍었을 때 먹통이 되는 이유는,
     // this가 복잡한 구조일 때 발생하는 성능 이슈일 수 있다.
     // 반면 console.log(this.playingScene)은 범위가 좁혀진 관계로 문제가 없는 경우.
@@ -100,10 +110,48 @@ export default class LevelUpScene extends Phaser.Scene {
       this.selectedAttackButton.deselectButton();
     }
     this.finallySelectedAttackClass = finallySelectedAttackClass;
-
     this.selectedAttackButton = this.optionButtons.find(btn => btn.name === finallySelectedAttackClass.name);
-    if (this.selectedAttackButton) {
-        this.selectedAttackButton.selectButton();
+    this.selectedAttackButton.selectButton();
+  }
+
+  selectPreviousOption() {
+    this.selectedOptionIndex--;
+    if (this.selectedOptionIndex < 0) this.selectedOptionIndex = this.randomAttacks.length - 1;
+
+    this.chooseOption(this.randomAttacks[this.selectedOptionIndex]);
+  }
+
+  selectNextOption() {
+    this.selectedOptionIndex++;
+    if (this.selectedOptionIndex >= this.randomAttacks.length) this.selectedOptionIndex = 0;
+
+    this.chooseOption(this.randomAttacks[this.selectedOptionIndex]);
+  }
+
+  inputKeyboardHandler() {
+    if (this.cursors.up.isDown && !this.keysPressed.up) {
+        this.selectPreviousOption();
+        this.keysPressed.up = true;
+    } else if (!this.cursors.up.isDown) {
+        this.keysPressed.up = false;
     }
+
+    if (this.cursors.down.isDown && !this.keysPressed.down) {
+        this.selectNextOption();
+        this.keysPressed.down = true;
+    } else if (!this.cursors.down.isDown) {
+        this.keysPressed.down = false;
+    }
+
+    if ((this.spaceKey.isDown || this.enterKey.isDown) && !this.keysPressed.space) {
+        this.resumeGame();
+        this.keysPressed.space = true;
+    } else if (!this.spaceKey.isDown && !this.enterKey.isDown) {
+        this.keysPressed.space = false;
+    }
+  }
+
+  update(){
+    this.inputKeyboardHandler();
   }
 }
